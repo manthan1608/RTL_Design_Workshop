@@ -21,3 +21,4 @@ Some of the open source eda tools used in this Workshop are
 
 ### Day 2 Timing libs , Hierarical vs Flat Synthesis and efficient Flop Coding Styles
 
+![day2_1](https://user-images.githubusercontent.com/84860957/119871869-824f9d80-bf40-11eb-9bf1-272686ab0873.JPG)
