@@ -1,5 +1,5 @@
 ![Verilog-flyer](https://www.vlsisystemdesign.com/wp-content/uploads/2021/05/Verilog-flyer.png)
-# RTL_Design_Using_Verilog_with_SKY130_Technology
+# RTL_Design_Using_Verilog_with_SKY130_Technology_Workshop
 This is a repository on RTL Design using Verilog with Sky130 Technology workshop conducted by VSD.It is a day to day log including examples from Lab sessions and Theory sessions
 ## Table of Content
 - [Introduction](#Introduction)
