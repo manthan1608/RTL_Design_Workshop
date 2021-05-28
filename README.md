@@ -197,3 +197,175 @@ We get the Output from the logic circuit as y = i<sub>1</sub> sel +i<sub>0</sub>
 ### Day 2 Timing libs , Hierarical vs Flat Synthesis and efficient Flop Coding Styles
 
 ![day2_1](https://user-images.githubusercontent.com/84860957/119871869-824f9d80-bf40-11eb-9bf1-272686ab0873.JPG)
+### Day 3 Combinational and sequential optimization
+#### Introduction to Logic Optimisation
+Logic Optimisation contains mainly 2 parts 
+1. Combination Logic Optimisation
+2. Sequential Logic Optimisation
+##### Combinational Logic optimisation
+-We need combinational logic optimisation to squeeze the logic to get the most optimised design 
+   * Mainly for Area and Power Saving
+- Constant Propogation is one of the technique used for Combinational Logic Optimisation 
+    * It is a Direct Optimisation in which the value of one input is propogated to the next stage  to get the most optimised logic.
+- Another Technique Used is the Boolean Logic Optimisation in which we use and other tools to get the most optimised logic.
+
+##### Sequential Logic optimisation
+In Sequential Logic Optimisation there are 2 Techniques 
+1. Basic
+ * Sequential Constant Propogation
+   * Some of the Sequential design in which D input is tied off the Squential Constant is propogated to give Q pin as a Constant and gives the most optmised design of the Squential Circuits.
+   * The Sequential Design in which Q does not remains as constant cannot be optimised and flop needs to be retained in the circuit.
+   * *Note*
+    >*Every flop in which the D input is tied off is a sequential constant for the flop to become sequential constant the Q pin should always take a constant value*.
+2. Advanced (not a part of the workshop) 
+ * State Optimisation
+   * Optimisation of unused states.
+ * Retiming
+   * It is a Technique to improve the Performance of the Circuit.
+ * Sequential Logic Cloning (Floor Plan Aware Synthesis)
+   * It is done when we are doing a Physical Aware Synthesis.
+
+***LAB Session***\
+
+*Lab 1*\
+**Combinational Logic Optimisation**\
+In this Lab we are going to use all the 'opt_check' files which can be found by typing the command`ls *opt_check*`\
+Let us first see the code for opt_check.v and opt_check2.v by opening it using `gedit`\
+\
+![day3_1](https://user-images.githubusercontent.com/84860957/119980860-816b4a00-bfda-11eb-9135-a9d51c409319.JPG)\
+\
+The opt_check is simplified as y = ab (And Logic gate)\
+The opt_check2 is simplified as y = a+b (Or logic gate)\
+\
+Now we invoke Yosys using the command `yosys`\
+Load the Libraries using `read_liberty -lib`\
+Now  read the verilog file using `read_verilog`\
+\
+![day3_2](https://user-images.githubusercontent.com/84860957/119981687-8aa8e680-bfdb-11eb-9c62-59c34f971e51.JPG)\
+\
+Now synthesizing the device using `synth -top`\
+\
+![day3_3](https://user-images.githubusercontent.com/84860957/119982058-fdb25d00-bfdb-11eb-9882-fd6c04144920.JPG)\
+\
+![day3_4](https://user-images.githubusercontent.com/84860957/119982061-fee38a00-bfdb-11eb-9772-66b434029a71.JPG)\
+\
+The  Command to do the constant propogation and all the optimisation is `opt_clean -purge`\
+\
+![day3_5](https://user-images.githubusercontent.com/84860957/119982501-8df0a200-bfdc-11eb-96ad-5c62cab322fa.JPG)\
+\
+Now Link it to the liberty using `abc -liberty` and then `show`\
+\
+![day3_6](https://user-images.githubusercontent.com/84860957/119982897-10796180-bfdd-11eb-8371-0986b9b1acf4.JPG)\
+\
+As we already concluded earlier for opt_check.v we are getting an And gate we see the same being implemented.\
+Similarly we check the implementation for opt_check2.v.\
+\
+![day3_7](https://user-images.githubusercontent.com/84860957/119983378-b2994980-bfdd-11eb-834d-7df54a2d48bf.JPG)\
+\
+As we already concluded earlier for opt_check2.v it should be a 2 input Or gate we get the same being implemented.\
+As Or gate involves Nor gate and it uses a stacked PMOS which is bad due its mobility and various other reasons the so the Tool does a Nand Realisation of Or gate.It a inverter -inverter followed by a Nand.\
+\
+![day3_8](https://user-images.githubusercontent.com/84860957/119984127-a792e900-bfde-11eb-84ab-f8cbeca67c4e.JPG)\
+\
+Similarly we observe opt_check3.v. \
+\
+![day3_9](https://user-images.githubusercontent.com/84860957/119985046-c6de4600-bfdf-11eb-9733-034818543a54.JPG)\
+\
+We evaluate that y = abc (3 input And gate).We apply the same process as above for opt_check.v and opt_check2.v to get the optimised output.\
+\
+![day3_10](https://user-images.githubusercontent.com/84860957/119986050-06f1f880-bfe1-11eb-8920-2e227a5c8695.JPG)\
+\
+As we already concluded earlier for opt_check3.v it should be a 3 input And gate we get the same being implemented.\
+\
+Similary We observe multiple_modules_opt.v.\
+\
+![day3_11](https://user-images.githubusercontent.com/84860957/119987069-3ce3ac80-bfe2-11eb-87bf-e9e223096f9d.JPG)\
+\
+We get the following result after we flatten the multiple_module_opt\
+\
+![day3_12](https://user-images.githubusercontent.com/84860957/119988192-78cb4180-bfe3-11eb-9b06-6707cdf99650.JPG)\
+\
+The resulting Circuitn is Enlarged below\
+![day3_13](https://user-images.githubusercontent.com/84860957/119988187-779a1480-bfe3-11eb-9573-9a56633bda5c.JPG)\
+\
+\
+**Sequential Logic Optimisation**\
+In this Lab we are going to use all the 'dff_const' files which can be found by typing the command`ls *dff_const*`\
+Let us take the dff_const1.v and dff-const2.v and open it \
+\
+Here is the Verilog code for both\
+![day3_14](https://user-images.githubusercontent.com/84860957/119991856-8a164d00-bfe7-11eb-821e-562d110c704a.JPG)\
+\
+![image](https://user-images.githubusercontent.com/84860957/119992133-d95c7d80-bfe7-11eb-8bf5-7d32b4e6b79c.png)\
+\
+Let us simulate  before synthesizing for that we use iverilog and then excute the a.out file to get vcd file.\
+\
+![image](https://user-images.githubusercontent.com/84860957/119993467-31e04a80-bfe9-11eb-8652-49a86e48e592.png)\
+\ 
+Use `gtkwave` to get the waveform\
+\
+![image](https://user-images.githubusercontent.com/84860957/119994081-e1b5b800-bfe9-11eb-889b-2d5e21358af0.png)\
+\
+We observe that even after rst has become low Q waits for rising edge of the clock to go high. This circuit will infer a flop.\
+\
+![image](https://user-images.githubusercontent.com/84860957/119994537-4ec94d80-bfea-11eb-86f3-f98abdd893ec.png)\
+\
+Now we Compare it with dff_const2.v\
+\
+We see that Q does not depend upon clk unlike in the case of dff_const1.v\
+![image](https://user-images.githubusercontent.com/84860957/119995765-8f759680-bfeb-11eb-9d32-db43bbeec350.png)\
+\
+Now let us Synthesis both the files\
+As this is a sequential circuit while synthesis we have to give one more command `dfflipmap` for proper mapping of sequential cells in the library.\
+\
+For dff_const1.v\
+![image](https://user-images.githubusercontent.com/84860957/119997392-4de5eb00-bfed-11eb-80a5-4dca530144c8.png)\
+\
+![image](https://user-images.githubusercontent.com/84860957/119997652-930a1d00-bfed-11eb-808d-a17e9f61a2e4.png)\
+\
+![image](https://user-images.githubusercontent.com/84860957/119997841-c64cac00-bfed-11eb-89b6-2580597a786e.png)\
+\
+We get the following logic design\
+![image](https://user-images.githubusercontent.com/84860957/119997995-ebd9b580-bfed-11eb-902f-df06a98134ad.png)\
+\
+The standard cell library is expecting the reset to be active low but we have coded a active high reset so the tool is inferring a inverter.\
+\
+Now we synthesis  dff_const2.v file\
+\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
