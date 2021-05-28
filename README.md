@@ -8,15 +8,15 @@ This is a repository on RTL Design using Verilog with Sky130 Technology workshop
 - [Day 3 Combinational and sequential optimization](#Day-3-Combinational-and-sequential-optimization)
 
 
-### Introduction
+## Introduction
 This Workshop intends to teach basics of digital design using verilog language, various RTL coding styles,synthesis and problems faced by industry and how to solve them in Verilog using SKY130 Technology.\
 Some of the open source eda tools used in this Workshop are
 1. [iverilog](http://iverilog.icarus.com/) : It is Simulator which used for RTL Simulations and Gate Level Simulations.
 2. [yosys](http://www.clifford.at/yosys/) : It is a open source Synthesis tool used for synthesis of RTL Design.
 3. [Skywater](https://skywater-pdk.readthedocs.io/en/latest/rules/background.html): It is used as 130nm Standard Cell Libraries.
 
-### Day 1 Introduction to Verilog RTL Design and Synthesis 
-#### Introduction to open source simulator iverilog
+## Day 1 Introduction to Verilog RTL Design and Synthesis 
+### Introduction to open source simulator iverilog
 ***Simulator***\
 RTL design is checked adherence to the spec by simulating the design.Simulator is the tool used for simulating this design.\
 We have used iverilog in this workshop for simulation.\
@@ -194,22 +194,22 @@ In the Logic Circuit generated we observe\
 We get the Output from the logic circuit as y = i<sub>1</sub> sel +i<sub>0</sub> sel' which is the logic for 2 input Multiplexer.
 
 
-### Day 2 Timing libs , Hierarical vs Flat Synthesis and efficient Flop Coding Styles
+## Day 2 Timing libs , Hierarical vs Flat Synthesis and efficient Flop Coding Styles
 
 ![day2_1](https://user-images.githubusercontent.com/84860957/119871869-824f9d80-bf40-11eb-9bf1-272686ab0873.JPG)
-### Day 3 Combinational and sequential optimization
-#### Introduction to Logic Optimisation
+## Day 3 Combinational and sequential optimization
+### Introduction to Logic Optimisation
 Logic Optimisation contains mainly 2 parts 
 1. Combination Logic Optimisation
 2. Sequential Logic Optimisation
-##### Combinational Logic optimisation
+#### Combinational Logic optimisation
 -We need combinational logic optimisation to squeeze the logic to get the most optimised design 
    * Mainly for Area and Power Saving
 - Constant Propogation is one of the technique used for Combinational Logic Optimisation 
     * It is a Direct Optimisation in which the value of one input is propogated to the next stage  to get the most optimised logic.
 - Another Technique Used is the Boolean Logic Optimisation in which we use and other tools to get the most optimised logic.
 
-##### Sequential Logic optimisation
+#### Sequential Logic optimisation
 In Sequential Logic Optimisation there are 2 Techniques 
 1. Basic
  * Sequential Constant Propogation
@@ -285,11 +285,12 @@ We get the following result after we flatten the multiple_module_opt\
 \
 ![day3_12](https://user-images.githubusercontent.com/84860957/119988192-78cb4180-bfe3-11eb-9b06-6707cdf99650.JPG)\
 \
-The resulting Circuitn is Enlarged below\
+The resulting Circuit is Enlarged below\
 ![day3_13](https://user-images.githubusercontent.com/84860957/119988187-779a1480-bfe3-11eb-9573-9a56633bda5c.JPG)\
 \
 \
 **Sequential Logic Optimisation**\
+*Lab 2*\
 In this Lab we are going to use all the 'dff_const' files which can be found by typing the command`ls *dff_const*`\
 Let us take the dff_const1.v and dff-const2.v and open it \
 \
@@ -332,6 +333,99 @@ The standard cell library is expecting the reset to be active low but we have co
 \
 Now we synthesis  dff_const2.v file\
 \
+We observe that it has not inferred any flop in this case contradictory to dff_const2.v
+![day3_22](https://user-images.githubusercontent.com/84860957/120008671-d0c07300-bff8-11eb-892e-b4f28c7b90a7.JPG)\
+\
+![image](https://user-images.githubusercontent.com/84860957/120007529-a3bf9080-bff7-11eb-89e1-6aff77fa364c.png)\
+\
+Now let us take dff_const.v file\
+\
+![day3_23](https://user-images.githubusercontent.com/84860957/120013530-7aeec980-bffe-11eb-836b-37b080a20c91.JPG)\
+\
+By observing the code we see that Q1 and Q both cannot be optimized so both the flops will be present in the Circuit.\
+So first let us simulate our design \
+\
+![day3_24](https://user-images.githubusercontent.com/84860957/120014737-0d439d00-c000-11eb-8806-08fa7f0448c8.JPG)\
+\
+We can clearly see that both q and q1 do not remain constant and both change on the rising edge of the clock so the cannot be optimized
+![day3_25](https://user-images.githubusercontent.com/84860957/120015132-95c23d80-c000-11eb-8ea6-164df52c10c4.JPG)\
+\
+Now let us go ahead and do the synthesis of the circuit\
+\
+![day3_26](https://user-images.githubusercontent.com/84860957/120015830-711a9580-c001-11eb-8cc2-53e8368d19f7.JPG)\
+\
+We can clearly see it infers 2 flops\
+![day3_27](https://user-images.githubusercontent.com/84860957/120015915-90192780-c001-11eb-964e-eb486b88d96b.JPG)\
+\
+![day3_28](https://user-images.githubusercontent.com/84860957/120016413-35340000-c002-11eb-99a4-1714313a0572.JPG)\
+\
+From the Logic diagram we have confirmed that 2 flops and also the 1st flop is a reset flop and the 2nd flop is a set flop.\
+![day3_29](https://user-images.githubusercontent.com/84860957/120016523-5694ec00-c002-11eb-905a-1cde4e794048.JPG)\
+\
+Not every flop which is having constant at the input gets optimized we also need to look at set and the reset connections and see if q is constant or q values is going to change.\
+
+*Lab3*
+Sequential Optimisation using Unused Output optimisation.\
+So let us consider the code counter_opt.v\
+\
+![day3_30](https://user-images.githubusercontent.com/84860957/120017702-d079a500-c003-11eb-962a-afc7ce5c2a97.JPG)\
+\
+When we look at code we see that it is a up-counter whenever there is reset it reset otherwise its 3 bit up-counter.\
+The output of the circuit is count[2:0] but q = count[0]. count[1] and count[2] are unused. So this are not required in the logic diagram.\
+Let us synthesis this code.\
+\
+We clearly see only 1 flop is inferred even if it is 3 bit counter it should have inferred 3 flops \
+![day3_31](https://user-images.githubusercontent.com/84860957/120018717-2c90f900-c005-11eb-91c8-baeee37db3bc.JPG)\
+\
+As it is a sequential circuit we should use `dfflibmap -liberty ../my_lib/lib/<location of .lib file>`\
+![day3_32](https://user-images.githubusercontent.com/84860957/120019489-23545c00-c006-11eb-9e49-51344bcdfb11.JPG)\
+\
+We can clearly see that there is only 1 flop in the circuit design.We see count[0] is toggling so the output q is given to the inverter and feededback to the d pin.\
+![day3_33](https://user-images.githubusercontent.com/84860957/120019609-4aab2900-c006-11eb-8200-8fc05076ce49.JPG)\
+\
+So we can conclude that any logic which is not resulting in any primary output is optimised away.\
+Now let us consider count_opt2.v\
+![day3_34](https://user-images.githubusercontent.com/84860957/120020725-bb067a00-c007-11eb-9451-f0f49585ebe4.JPG)\
+\
+We have tweaked the code slightly from count_opt.v as we have changed `assign q = (count[2:0] == 3'b100);`\
+Now we expect that as all outputs are used it should have 3 flops to be present in the logic circuit.\
+Let us synthesis the code.\
+\
+![day3_35](https://user-images.githubusercontent.com/84860957/120021888-46343f80-c009-11eb-8caf-6c988831633c.JPG)\
+\
+From the Figure above we clearly see that 3 flops are inferred here.\
+\
+![day3_36](https://user-images.githubusercontent.com/84860957/120022280-d07ca380-c009-11eb-91af-12cfc02884fe.JPG)\
+\
+The logic other than the flops is the incremental logic.\
+The given Logic diagram contains 3 flops .We get the expression of q = count[2] . count[1]'.count[0]' so it is using all the primary outputs so it uses all the flops.\
+So we conclude that all the outputs that have no role in determining the primary output are optimized away using Unused Output Optimisation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
