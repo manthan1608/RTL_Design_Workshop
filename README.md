@@ -338,6 +338,12 @@ again follow the Step 5 and Step 6.We get the logic diagram of sub_module1 \
 > *`Synth -top` controls which module to synthesis*.\
 > *`flatten` is used for flattening the netlist*.
 
+### Various Flop Coding Styles and Optimization.
+
+
+
+
+
 
 
 
