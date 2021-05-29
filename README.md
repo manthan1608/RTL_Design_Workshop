@@ -197,7 +197,6 @@ We get the Output from the logic circuit as y = i<sub>1</sub> sel +i<sub>0</sub>
 
 ## Day 2 Timing libs , Hierarical vs Flat Synthesis and efficient Flop Coding Styles
 
-![day2_1](https://user-images.githubusercontent.com/84860957/119871869-824f9d80-bf40-11eb-9bf1-272686ab0873.JPG)
 ## Day 3 Combinational and sequential optimization
 ### Introduction to Logic Optimisation
 Logic Optimisation contains mainly 2 parts 
@@ -687,7 +686,6 @@ This simulation shows as if the Mux is acting like a flop .\
 \
 Now let us synthesis and see what happens.
 \
-
 For synthesis we invoke `yosys`\
 \
 ![day4_5](https://user-images.githubusercontent.com/84860957/120070340-a37ece00-c0a7-11eb-8574-e0fa81a9f8e2.JPG)\
@@ -718,7 +716,7 @@ Now to get the netlist file we use `write_verilog`\
 ![day4_26](https://user-images.githubusercontent.com/84860957/120070746-a7135480-c0a9-11eb-89cb-1d0abfd9cafe.JPG)
 \
 Now let us do the GLS.\
-For that we need to open iverilog with verilog models,netlist,  and testbench using the command `iverilog`. In the lib folder you will find the verilog models of the standard cells.Execute a.out file using ./a.out \
+For that we need to open iverilog with verilog models,netlist,  and testbench using the command `iverilog`. In the lib folder you will find the verilog models of the standard cells.Execute a.out file using `./a.out` \
 \
 ![day4_27](https://user-images.githubusercontent.com/84860957/120070876-3e78a780-c0aa-11eb-807f-dacf1babe9e9.JPG)\
 \
@@ -752,6 +750,83 @@ Now let us do the RTL simulation.\
 \
 For simulation we first invoke the iverilog using `iverilog` command.\
 \
+Then we execute the a.out file using the `./a.out` command and get the vcd file.\
+\
+![day4_33](https://user-images.githubusercontent.com/84860957/120072156-f3619300-c0af-11eb-9e3d-d66690e44af8.JPG)\
+\
+Now we use GTKwave to observe the simulation by giving the command `gtkwave`\
+\
+![day4_34](https://user-images.githubusercontent.com/84860957/120072245-77b41600-c0b0-11eb-8bfc-7fbf955cbe2b.JPG)\
+\
+![day4_35](https://user-images.githubusercontent.com/84860957/120072318-ebeeb980-c0b0-11eb-87b0-b6705fd5c8e0.JPG)\
+\
+We see from the simulation that the value of d = 0 but it is coming out to be 1 because the past value of (a or b) is 1 in the cycle before that value is getting anded with the present value of c.\
+\
+Now let us synthesis and see what happens.
+\
+For synthesis we invoke `yosys`\
+\
+![day4_5](https://user-images.githubusercontent.com/84860957/120070340-a37ece00-c0a7-11eb-8574-e0fa81a9f8e2.JPG)\
+\
+To Load the .lib file we use the command `read_liberty -lib ../my_lib/lib/...`\
+![day4_6](https://user-images.githubusercontent.com/84860957/120068847-70850c00-c0a0-11eb-8782-3e39a5be8f15.JPG)\
+\
+Then we read the verilog file using `read_verilog <file name>`\
+\
+![day4_36](https://user-images.githubusercontent.com/84860957/120072503-df1e9580-c0b1-11eb-8be7-9bff69bf2070.JPG)\
+\
+Now let us start the synthesis process using `synth -top <file name>`\
+\
+![day4_37](https://user-images.githubusercontent.com/84860957/120072570-20af4080-c0b2-11eb-976a-742383e89d8d.JPG)\
+\
+Here are some details of which gates are inferred\
+\
+![day4_38](https://user-images.githubusercontent.com/84860957/120072657-90bdc680-c0b2-11eb-9bf8-660e200cd324.JPG)\
+\
+Now let us use the `abc -liberty ../my_lib/lib/<.lib file>`\
+\
+![day4_25](https://user-images.githubusercontent.com/84860957/120070588-eab98e80-c0a8-11eb-89a6-efca6f81ae7c.JPG)\
+\
+Now to get the netlist file we use `write_verilog`\
+\
+![day4_39](https://user-images.githubusercontent.com/84860957/120072843-54d73100-c0b3-11eb-9ee4-7310def47998.JPG)\
+\
+Before going to the GLS let us look at what logic we got by giving the command `show`.\
+\
+![day4_40](https://user-images.githubusercontent.com/84860957/120072905-a54e8e80-c0b3-11eb-9699-60eb02b22f5a.JPG)\
+\
+We clearly see that it is very straight forward with or 2 and gate used and no latches in the design.\
+\
+Now let us do the GLS.\
+For that we need to open iverilog with verilog models,netlist,  and testbench using the command `iverilog`. In the lib folder you will find the verilog models of the standard cells.Execute a.out file using `./a.out` \
+\
+![day4_41](https://user-images.githubusercontent.com/84860957/120073206-12165880-c0b5-11eb-89a8-db54c4fcc4d2.JPG)\
+\
+Now we use GTKwave to observe the simulation by giving the command `gtkwave`\
+\
+![day4_42](https://user-images.githubusercontent.com/84860957/120073346-83eea200-c0b5-11eb-832f-b39ed0968f2b.JPG)\
+\
+![day4_43](https://user-images.githubusercontent.com/84860957/120073728-3ecb6f80-c0b7-11eb-9cdd-6285657c7e7e.JPG)\
+\
+Now we compare the simultion with the RTL design and after synthesis Netlist simulation.\
+\
+![day4_44](https://user-images.githubusercontent.com/84860957/120073766-5acf1100-c0b7-11eb-886b-6b8f6fcaa08e.JPG)\
+\
+We can clearly see that the value of d = 0 for the same case where a = 0,b = 0 and c = 1.\
+This is Synthesis Simulation Mismatch caused by Blocking statement.\
+Please be very carefull before using blocking statements for Sequential Circuits.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
