@@ -621,14 +621,14 @@ Now let us systhesis for which we invoke `yosys`\
 \
 To Load the .lib file we use the command `read_liberty -lib ../my_lib/lib/...`\
 ![day4_6](https://user-images.githubusercontent.com/84860957/120068847-70850c00-c0a0-11eb-8782-3e39a5be8f15.JPG)\
-Then we read the verilog file using `rea_verilog <file name>`\
+Then we read the verilog file using `read_verilog <file name>`\
 ![day4_7](https://user-images.githubusercontent.com/84860957/120068898-a4f8c800-c0a0-11eb-8eed-100ab20a6d36.JPG)\
 Now let us start the synthesis process using `synth -top <file name>`\
 ![day4_8](https://user-images.githubusercontent.com/84860957/120068924-c78ae100-c0a0-11eb-8821-e602a0b716aa.JPG)\
 \
 ![day4_9](https://user-images.githubusercontent.com/84860957/120068944-e2f5ec00-c0a0-11eb-97d5-7e72d1be7317.JPG)\
 We can clearly see that 1 Mux has been infered.\
-Now let us use the `abc -liberty ../my_lib/lib/<.lib file>` and  then  \
+Now let us use the `abc -liberty ../my_lib/lib/<.lib file>`\
 \
 ![day4_12](https://user-images.githubusercontent.com/84860957/120069067-93fc8680-c0a1-11eb-84b5-cf08d4465ca8.JPG)\
 \
@@ -647,7 +647,7 @@ For that we need to open iverilog with verilog models,netlist,  and testbench us
 \
 ![day4_13](https://user-images.githubusercontent.com/84860957/120069303-d83c5680-c0a2-11eb-9798-d2fe66abbef8.JPG)\
 \
-Now as the vcd file is generated.\
+Now as the vcd file is generated.Now we use GTKwave to observe the simulation by giving the command `gtkwave`\
 \
 ![day4_14](https://user-images.githubusercontent.com/84860957/120069400-7e885c00-c0a3-11eb-90f8-a878492882e5.JPG)\
 \
@@ -657,7 +657,123 @@ We know the difference GLS and RTL as in GLS under uut there no files but in GLS
 \
 Now let us observe the simulation. It is clearly following the MUX output.\
 \
-![day4_16](https://user-images.githubusercontent.com/84860957/120069528-feaec180-c0a3-11eb-8cac-ac7cfc4869e5.JPG)
+![day4_16](https://user-images.githubusercontent.com/84860957/120069528-feaec180-c0a3-11eb-8cac-ac7cfc4869e5.JPG)\
+\
+\
+Now Let us take another example of bad_mux.v\
+\
+![day4_17](https://user-images.githubusercontent.com/84860957/120069650-ab893e80-c0a4-11eb-9f6c-4acc0f76753f.JPG)\
+\
+We can observe that in this case the always block going to be evaluated only upon changes in sel.\
+So in simulation it we work as some kind of flop.\
+Now let us carry out the RTL simulation.\
+\
+For simulation we first invoke the iverilog using `iverilog` command.\
+\
+![day4_18](https://user-images.githubusercontent.com/84860957/120069804-703b3f80-c0a5-11eb-84e4-9ab930e19506.JPG)\
+\
+Then we execute the a.out file using the `./a.out` command and get the vcd file.\
+\
+![day4_19](https://user-images.githubusercontent.com/84860957/120069865-bbede900-c0a5-11eb-9ebf-5b54e677a229.JPG)\
+\
+Now we use GTKwave to observe the simulation by giving the command `gtkwave`\
+\
+![day4_20](https://user-images.githubusercontent.com/84860957/120069952-2bfc6f00-c0a6-11eb-9026-d1a49a0c1a4c.JPG)\
+\
+![day4_21](https://user-images.githubusercontent.com/84860957/120069991-5ea66780-c0a6-11eb-8374-d70324ff0092.JPG)\
+\
+So we can observe that if there is no activity on the output does not change.\
+This simulation shows as if the Mux is acting like a flop .\
+\
+Now let us synthesis and see what happens.
+\
+
+For synthesis we invoke `yosys`\
+\
+![day4_5](https://user-images.githubusercontent.com/84860957/120070340-a37ece00-c0a7-11eb-8574-e0fa81a9f8e2.JPG)\
+\
+To Load the .lib file we use the command `read_liberty -lib ../my_lib/lib/...`\
+![day4_6](https://user-images.githubusercontent.com/84860957/120068847-70850c00-c0a0-11eb-8782-3e39a5be8f15.JPG)\
+\
+Then we read the verilog file using `read_verilog <file name>`\
+\
+![day4_22](https://user-images.githubusercontent.com/84860957/120070407-01131a80-c0a8-11eb-8031-5d4d3ded68ac.JPG)\
+\
+Now let us start the synthesis process using `synth -top <file name>`\
+\
+![day4_23](https://user-images.githubusercontent.com/84860957/120070465-4a636a00-c0a8-11eb-9f7a-f26f896ec6b8.JPG)\
+\
+Here are some details of which gates are inferred\
+\
+![day4_24](https://user-images.githubusercontent.com/84860957/120070502-7da5f900-c0a8-11eb-9d9a-387a17f18933.JPG)\
+\
+So we see it infers MUX not a latch.\
+\
+Now let us use the `abc -liberty ../my_lib/lib/<.lib file>`\
+\
+![day4_25](https://user-images.githubusercontent.com/84860957/120070588-eab98e80-c0a8-11eb-89a6-efca6f81ae7c.JPG)\
+\
+Now to get the netlist file we use `write_verilog`\
+\
+![day4_26](https://user-images.githubusercontent.com/84860957/120070746-a7135480-c0a9-11eb-89cb-1d0abfd9cafe.JPG)
+\
+Now let us do the GLS.\
+For that we need to open iverilog with verilog models,netlist,  and testbench using the command `iverilog`. In the lib folder you will find the verilog models of the standard cells.Execute a.out file using ./a.out \
+\
+![day4_27](https://user-images.githubusercontent.com/84860957/120070876-3e78a780-c0aa-11eb-807f-dacf1babe9e9.JPG)\
+\
+Now we use GTKwave to observe the simulation by giving the command `gtkwave`\
+\
+![day4_28](https://user-images.githubusercontent.com/84860957/120071008-d2e30a00-c0aa-11eb-8cb4-d0057556c67a.JPG)\
+\
+![day4_29](https://user-images.githubusercontent.com/84860957/120071044-fefe8b00-c0aa-11eb-8d55-56c7ff900301.JPG)\
+\
+Now we compare the simultion with the RTL design and after synthesis Netlist simulation.\
+\
+![day4_30](https://user-images.githubusercontent.com/84860957/120071293-3de11080-c0ac-11eb-8c47-544e6370ab1b.jpg)\
+\
+In the GLS simulation the activity on i1, i0 has been reflected on output whereas in the RTL simulation the output was effected by only the sel.\
+This is called Synthesis Simulation Mismatch.\
+\
+\
+*Lab2*\
+In this Lab we will continue to see the Synthesis Simulation Mismatch.\
+Now Let us take a blocking code example.\
+\
+![image](https://user-images.githubusercontent.com/84860957/120071466-353d0a00-c0ad-11eb-9610-d2129a965624.png)\
+\
+The aim of this code is to get the d = (a+b).c \
+\
+Now because of the blocking statement first d will be assigned (x and c) then x = a or b will be executed.\
+So by the time the statement for d is getting evaluated we have the previous value of x .\
+So when we simulate it , it will look as if x is a flopped output.\
+\
+Now let us do the RTL simulation.\
+\
+For simulation we first invoke the iverilog using `iverilog` command.\
+\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
