@@ -419,7 +419,7 @@ So we conclude that all the outputs that have no role in determining the primary
 - After which it has the same flow giving the vcd file using which we can generate Waveform using GTKwave.
 
 *Note* 
-> *If the gate level models are delay annotated, then we can use GLS for timing validation.
+> *If the gate level models are delay annotated, then we can use GLS for timing validation.*
 
 #### Synthesis Simulation Mismatch
 -Suppose we have a Netlist 
@@ -588,7 +588,95 @@ endmodule
 - When we simulate it will work as the given circuit.
 - In both cases above when we synthesis we get the desired circuit but in first case the simulation result differ with synthesis results.
 
-Because of these kind of issues it becomes very important to run GLS on the Netlist and match with the expected output and see if there are no Synthesis Simulation Mismatches.
+Because of these kind of issues it becomes very important to run GLS on the Netlist and match with the expected output and see if there are no Synthesis Simulation Mismatches.\
+\
+***LAB Session***\
+*Lab 1*\
+In this Session we are going to see how to invoke GLS and run some basic experiments with GLS.
+To Run GLS we need
+- Netlist
+- Verilog Models
+- Testbench
+
+Let us consider the file ternary_operator_mux.v
+- Ternary Operator
+  * ` <cond> ? <T>:<F>`
+  * If the condition is true the 'T' part is executed and if it is false 'F' part is executed.
+
+
+Now let us have a look at the code of  ternary_operator_mux.v\
+![day4_1](https://user-images.githubusercontent.com/84860957/120068523-b640d500-c09e-11eb-8ece-967e608c51ae.JPG)\
+The code given is basically a Mux implemented using a ternary operator.\
+Now let us first do the RTL simulation.\
+For that we first invoke `iverilog` and then execute the a.out file using `./a.out`\
+![day4_2](https://user-images.githubusercontent.com/84860957/120068627-39fac180-c09f-11eb-8212-4350f6fbde0a.JPG)\
+After getting the vcd file use `gtkwave <file name>` to see the simulation.\
+![day4_3](https://user-images.githubusercontent.com/84860957/120068653-6c0c2380-c09f-11eb-81d2-3b08a8f11e42.JPG)
+
+![day4_4](https://user-images.githubusercontent.com/84860957/120068728-cdcc8d80-c09f-11eb-974d-8cc9c2df06a0.JPG)\
+\
+Here we observe it is clearly following the behaviour of 2:1 MUX.\
+Now let us systhesis for which we invoke `yosys`\
+![day4_5](https://user-images.githubusercontent.com/84860957/120068803-387dc900-c0a0-11eb-80d7-de215d0b64cc.JPG)\
+\
+To Load the .lib file we use the command `read_liberty -lib ../my_lib/lib/...`\
+![day4_6](https://user-images.githubusercontent.com/84860957/120068847-70850c00-c0a0-11eb-8782-3e39a5be8f15.JPG)\
+Then we read the verilog file using `rea_verilog <file name>`\
+![day4_7](https://user-images.githubusercontent.com/84860957/120068898-a4f8c800-c0a0-11eb-8eed-100ab20a6d36.JPG)\
+Now let us start the synthesis process using `synth -top <file name>`\
+![day4_8](https://user-images.githubusercontent.com/84860957/120068924-c78ae100-c0a0-11eb-8821-e602a0b716aa.JPG)\
+\
+![day4_9](https://user-images.githubusercontent.com/84860957/120068944-e2f5ec00-c0a0-11eb-97d5-7e72d1be7317.JPG)\
+We can clearly see that 1 Mux has been infered.\
+Now let us use the `abc -liberty ../my_lib/lib/<.lib file>` and  then  \
+\
+![day4_12](https://user-images.githubusercontent.com/84860957/120069067-93fc8680-c0a1-11eb-84b5-cf08d4465ca8.JPG)\
+\
+and then use `show` to get the logic diagram generated.\
+\
+![day4_10](https://user-images.githubusercontent.com/84860957/120069034-64e61500-c0a1-11eb-86c3-744e7607d836.JPG)\
+\
+This is the Logic Diagram generated\
+\
+![day4_11](https://user-images.githubusercontent.com/84860957/120069039-70d1d700-c0a1-11eb-9f12-d0b57d404990.JPG)\
+\
+If we Solve the logic diagram we get the result as y = sel .i1 + sel'.i0.Exactly \
+\
+Now let us do the GLS.\
+For that we need to open iverilog with verilog models,netlist,  and testbench using the command `iverilog`. In the lib folder you will find the verilog models of the standard cells.Execute a.out file using ./a.out \
+\
+![day4_13](https://user-images.githubusercontent.com/84860957/120069303-d83c5680-c0a2-11eb-9798-d2fe66abbef8.JPG)\
+\
+Now as the vcd file is generated.\
+\
+![day4_14](https://user-images.githubusercontent.com/84860957/120069400-7e885c00-c0a3-11eb-90f8-a878492882e5.JPG)\
+\
+We know the difference GLS and RTL as in GLS under uut there no files but in GLS we _6_ , _7_ , _8_.\
+\
+![day4_15](https://user-images.githubusercontent.com/84860957/120069486-c909d880-c0a3-11eb-8c5d-29f22da6c195.JPG)\
+\
+Now let us observe the simulation. It is clearly following the MUX output.\
+\
+![day4_16](https://user-images.githubusercontent.com/84860957/120069528-feaec180-c0a3-11eb-8cac-ac7cfc4869e5.JPG)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
