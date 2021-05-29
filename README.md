@@ -43,7 +43,7 @@ The TestBench looks something like this
   * Here ***vcd*** stands for *Value Change Dump* format.
 - To view the *vcd file* we use another tool called ***GTKWave*** which is used for viewing the waveforms.
 
-***LAB Session***
+***LAB Session***\
 *Lab 1*\
 It is introductory lab session in which we look at environment setup  for running the labs.\
 Before cloning we can create directory *vsd* and inside it another directory *VLSI* using the `mkdir` command as demonstrated below
@@ -109,16 +109,26 @@ The GTKwave should be as we found in the case of design simulation as Netlist is
 ***Logic Synthesis*** \
 *RTL design* \
 It is the Behavioral Representation of required specification like the verilog HDL code below\
-\
-![day1_16](https://user-images.githubusercontent.com/84860957/119940902-7bab3f80-bfad-11eb-83ad-90866f7e3696.JPG)\
-\
+```verilog
+module sample_code(
+input clk,rst,
+output result,done);
+
+always @ (posedge clk,posedge rst)
+if(rst)
+---
+else
+---
+endmodule
+--------------
+--------------
+```
 *Synthesis*
 - RTL to Gate Level Translation
 - The design is converted into the gates and connections are made between the gates.
 - This is given out as the file called Netlist.
-- ![day1_17](https://user-images.githubusercontent.com/84860957/119941556-6387f000-bfae-11eb-9024-ff5dd412efb8.JPG)\
 
-*.lib* 
+*.lib file* 
 - It is the collection of the logical modules
 - Includes basic gates such as And,Or,Not etc.
 - Different flavour of same gate 
@@ -187,7 +197,7 @@ Now to see the Logic it has realised type the command `show`\
 We get the following Logic Implementation.\
 ![day1_26](https://user-images.githubusercontent.com/84860957/119950105-27598d00-bfb8-11eb-9ee4-ac1e96c5f384.JPG)\
 \
-In the Logic Circuit generated we observe\
+In the Logic Circuit generated we observe
 - nand2_1 --> 2 input Nand gate
 - o21ai_0  --> or and inverter
 - clkinv_1 --> inverter
@@ -196,6 +206,90 @@ We get the Output from the logic circuit as y = i<sub>1</sub> sel +i<sub>0</sub>
 
 
 ## Day 2 Timing libs , Hierarical vs Flat Synthesis and efficient Flop Coding Styles
+### Introduction to .lib
+We have used sky130_fd_sc_hd__tt_025C_1v80 for which meaning of each abbreviation is given below
+- fd - the skywater foundary
+- sc - digital standard cell
+- hd - high density
+- tt - typical process
+- 025C - temperature
+- 1v - voltage
+*Note*
+> library in the sky130 pdk are named using the following scheme:
+
+> process name _ library source _ library type _ library name
+
+Here is sample of .lib file\
+\
+![day2_25](https://user-images.githubusercontent.com/84860957/120077764-a12d6b80-c0c9-11eb-8289-9913e206d24b.JPG)\
+\
+![day2_26](https://user-images.githubusercontent.com/84860957/120077777-ab4f6a00-c0c9-11eb-93e7-d448b1fbf73c.JPG)\
+\
+Some details which are provided in the .lib file are 
+- Power 
+  * Internal Power 
+  * Leakage Power
+- Area 
+- Pin details
+- Timings
+- Capacitance
+
+#### Comparison between different Cells in terms of there Area
+\
+![day2_24](https://user-images.githubusercontent.com/84860957/120078089-5d3b6600-c0cb-11eb-9b3f-f154cff3b464.png)\
+\
+*Note*
+> Here we observe that 
+> area(and2_4) >area(and2_2)>area(and2_0) 
+> power(and2_4)>power(and2_2)>power(and2_0)
+
+### Hierarchical vs Flat Synthesis
+In this section we explore through the Hierarical and Flat synthesis.\
+Let us go through one of the examples through a Lab session to understand the difference between hierarchical and Flat Synthesis.\
+\
+***LAB Session***\
+*Lab 1*\
+For this we are going to consider the multiple_modules.v code.\
+```verilog
+module sub_module2 (input a, input b, output y);
+	assign y = a | b;
+endmodule
+
+module sub_module1 (input a, input b, output y);
+	assign y = a&b;
+endmodule
+
+
+module multiple_modules (input a, input b, input c , output y);
+	wire net1;
+	sub_module1 u1(.a(a),.b(b),.y(net1));  //net1 = a&b
+	sub_module2 u2(.a(net1),.b(c),.y(y));  //y = net1|c ,ie y = a&b + c;
+endmodule
+```
+Step 1 : Invoke yosys using `yosys`\
+\
+![day4_5](https://user-images.githubusercontent.com/84860957/120079016-ae4d5900-c0cf-11eb-87e8-a014b104fcfe.JPG)\
+\
+Step 2 : Read liberty file using `read_liberty`\
+\
+![day4_6](https://user-images.githubusercontent.com/84860957/120079082-02f0d400-c0d0-11eb-86d8-5edac4bdf2dc.JPG)\
+\
+Step 3 : Read verilog file using `read_verilog`\
+\
+![day2_27](https://user-images.githubusercontent.com/84860957/120079195-772b7780-c0d0-11eb-8103-c874ebcd1392.JPG)\
+\
+Step 4 : For starting the synthsis process use `synth -top` and also observe the inferences\
+\
+![day2_28](https://user-images.githubusercontent.com/84860957/120079307-e1441c80-c0d0-11eb-81df-d4b10ce988aa.JPG)\
+\
+![day2_29](https://user-images.githubusercontent.com/84860957/120079415-47c93a80-c0d1-11eb-9607-fd963204ef65.JPG)\
+\
+
+Step 5 : 
+
+
+
+
 
 ## Day 3 Combinational and sequential optimization
 ### Introduction to Logic Optimisation
