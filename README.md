@@ -6,6 +6,7 @@ This is a repository on RTL Design using Verilog with Sky130 Technology workshop
 - [Day 1 Introduction to Verilog RTL Design and Synthesis](#Day-1-Introduction-to-Verilog-RTL-Design-and-Synthesis)
 - [Day 2 Timing libs , Hierarical vs Flat Synthesis and efficient Flop Coding Styles](#Day-2-Timing-libs-,-Hierarical-vs-Flat-Synthesis-and-efficient-Flop-Coding-Styles)
 - [Day 3 Combinational and sequential optimization](#Day-3-Combinational-and-sequential-optimization)
+- [Day 4 - GLS, blocking vs non-blocking and Synthesis-Simulation mismatch](#Day-4---GLS-,-blocking-vs-non---blocking-and-Synthesis-Simulation-mismatch)
 
 
 ## Introduction
@@ -399,9 +400,195 @@ From the Figure above we clearly see that 3 flops are inferred here.\
 \
 The logic other than the flops is the incremental logic.\
 The given Logic diagram contains 3 flops .We get the expression of q = count[2] . count[1]'.count[0]' so it is using all the primary outputs so it uses all the flops.\
-So we conclude that all the outputs that have no role in determining the primary output are optimized away using Unused Output Optimisation
+So we conclude that all the outputs that have no role in determining the primary output are optimized away using Unused Output Optimisation.
+
+## Day 4 - GLS, blocking vs non-blocking and Synthesis-Simulation mismatch
+### Introduction to GLS
+#### What is GLS 
+- It stands for Gate Level Simulation.
+- Running the Test Bench With Netlist as design under Test.
+- Netlist is logically same as the RTL Code.
+  * Same testbench will align with the design.
+#### Why GLS ?
+- Verify the LOgical Correctness of the design after synthesis.
+- Ensuring the Timing of design is met
+  * For this GLS needs to be run with delay annotation. \
+#### GLS using iverilog
+- We give the Netlist,**Gate Level Verilog Models** and Testbench  to the iverilog.
+- Netlist has all the standard cell instantiated and the meaning of standard cell is conveyed to the iverilog by **Gate Level Verilog Models**.
+- After which it has the same flow giving the vcd file using which we can generate Waveform using GTKwave.
+
+*Note* 
+> *If the gate level models are delay annotated, then we can use GLS for timing validation.
+
+#### Synthesis Simulation Mismatch
+-Suppose we have a Netlist 
+  * and u_and(.a(a),.b(b)) 
+  * or u_or (.a(a),.b(b)) 
+- Now to understand this we Gate level Verilog Models.They can 
+  * Timing Aware -->validate functionality + timing both 
+  * Functional --> validate functionality
+##### Why Synthesis Simulation Mismatch happens ?
+- Missing Sensitivity List
+- Blocking Vs Non-Blocking Assignments
+- Non Standard verilog Coding
+
+##### Missing Sensitivity List
+Let us consider a verilog Code
+```verilog 
+module mux(
+input i0,input i1
+input sel,
+output reg y
+);
+always @ (sel)
+begin
+   if (sel)
+            y = i1;
+   else 
+            y = i0;
+            
+end
+endmodule
+```
+- Simulator works based on activity i.e the output will change only when there is a change in the input.
+- In the Code given the always block is evaluating only when the sel is changing. As the always block is not sensitive to the changes in i0 and i1.
+- Only when there is a change in sel the always block gets evaluated. 
+- When  we simulate it acts as a latch.But when we synthesis it will act as a Mux.
+- This is called missing elements of sensitivity list.
+- Now let us consider another code 
+```verilog 
+module mux(
+input i0,input i1
+input sel,
+output reg y
+);
+always @ (*)
+begin
+   if (sel)
+            y = i1;
+   else 
+            y = i0;
+            
+end
+endmodule
+```
+- In this case always is evaluated when any signal changes.
+- So now always block will be evaluated for i1 as well as i0
+- This will simulate as Mux and also be synthesised as Mux.
+
+##### Blocking and Non Blocking Statements
+- Inside always block
+  * If we are using '=' to make assignments
+    * Executes the Statement in the order it is written.
+    * So the first statement is evaluated before the second statement.
+  * If we are using '<=' to make assignments
+    * Executes all the RHS when always block is enteredand assigns to LHS
+    * Parallel Evaluation
+
+##### Caveats with Blocking Statements 
+- Let try to create a shift register
+
+```verilog
+module code (input clk,input reset,
+input d,
+output reg q);
+always @ (posedge clk,posedge reset)
+begin
+if(reset)
+begin
+        q0 = 1'b0;
+        q = 1'b0;
+end
+else
+        q = q0;
+        q0 = d;
+        
+end
+endmodule
+```
+- In this case q0 is assigned to q and then d gets assigned to q0.So we get 2 values.
+- So it has 2 flops. 
+- Now let change the code slightly
 
 
+```verilog
+module code (input clk,input reset,
+input d,
+output reg q);
+always @ (posedge clk,posedge reset)
+begin
+if(reset)
+begin
+        q0 = 1'b0;
+        q = 1'b0;
+end
+else
+        q0 = d;
+        q = q0;
+                
+end
+endmodule
+```
+- In this case q0 is assigned d the q0 gets assigned to q
+- So it is as if q is getting the value of d which means it only has 1 flop
+- But if we write it with non blocking statements
+```
+module code (input clk,input reset,
+input d,
+output reg q);
+always @ (posedge clk,posedge reset)
+begin
+if(reset)
+begin
+        q0 <= 1'b0;
+        q <= 1'b0;
+end
+else
+        q0 <= d;
+        q <= q0;
+                
+end
+endmodule
+```
+- So we conclude that non blocking statements should be used to write Sequential Circuit Code.
+
+Now Let us look at another code.\
+Our aim is to create a circuit with output as y = (a + b).c
+```verilog
+module code (input a,b,c
+output reg y);
+reg q0;
+always @ (*)
+begin
+        y = q0 & c;
+        q0 = a|b ;
+        
+end 
+endmodule
+```
+- We assign the value of y with q0 and with c first and then assign q0 as a or b 
+- So we see that q0 value is the old q0 value and is not updated.
+- When we simulate old q0 value will mimic a delay or flop but when we synthesis there will not be a flop.
+- Now let us change the order of block statement
+```verilog
+module code (input a,b,c
+output reg y);
+reg q0;
+always @ (*)
+begin
+        q0 = a|b ;
+        y = q0 & c;
+        
+        
+end 
+endmodule
+```
+- In this case there will not be any delay as the q0 is updated first then used.
+- When we simulate it will work as the given circuit.
+- In both cases above when we synthesis we get the desired circuit but in first case the simulation result differ with synthesis results.
+
+Because of these kind of issues it becomes very important to run GLS on the Netlist and match with the expected output and see if there are no Synthesis Simulation Mismatches.
 
 
 
