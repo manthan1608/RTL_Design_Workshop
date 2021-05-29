@@ -284,8 +284,78 @@ Step 4 : For starting the synthsis process use `synth -top` and also observe the
 \
 ![day2_29](https://user-images.githubusercontent.com/84860957/120079415-47c93a80-c0d1-11eb-9607-fd963204ef65.JPG)\
 \
+Step 5 : Now to map to standard cell we use `abc -liberty`\
+\
+![day2_30](https://user-images.githubusercontent.com/84860957/120082243-764e1200-c0df-11eb-82ab-12213391b5f2.JPG)\
+\
+Step 6 : Now to see the Logic design we give the command `show`\
+\
+![day2_31](https://user-images.githubusercontent.com/84860957/120082301-c4631580-c0df-11eb-93fc-d7264a869f87.JPG)\
+\
+![day2_32](https://user-images.githubusercontent.com/84860957/120082318-e0ff4d80-c0df-11eb-8e55-d167fa8fb90d.JPG)\
+\
+We observe that it does not show 'and' gate or 'or' gate but instead shows the 2 sub modules u1 and u2.This is what we call the **Hierarical design**.\
+\
+Step 7 : Now to get the netlist we give the `write_verilog -attr` command\
+\
+![day2_33](https://user-images.githubusercontent.com/84860957/120082456-d98c7400-c0e0-11eb-8457-bede10f72779.JPG)\
+\
+![day2_34](https://user-images.githubusercontent.com/84860957/120082773-67b52a00-c0e2-11eb-8668-bee95d7ea581.JPG)
+\
+\
+We see that all the hierarchies are preserved and to avoid stacked PMOS the logic is implemented using NAND gates.\
+\
+*Note*
+> *Stacked PMOS is always bad because PMOS has poor mobility and to improve this we have to make the cell alot wide cell to get good logical effort.
 
-Step 5 : 
+Step 8 : We use `flatten` to write out he flat netlist.And again use `write_verilog -attr` to get the flattened netlist.\
+\
+![day2_35](https://user-images.githubusercontent.com/84860957/120082814-aba82f00-c0e2-11eb-9830-4515c10033bc.JPG)\
+\
+In this case the hierarchy is not preserved but are flattened out. We can see the logic diagram flattened as below
+\
+![day2_36](https://user-images.githubusercontent.com/84860957/120082884-16f20100-c0e3-11eb-8e9f-f2e96955816a.JPG)\
+\
+We do not see u1 and u2 but the sub-modules completely flattened.\
+\
+Now to do a sub module level synthesis we follow the same procedure until Step 3\
+\
+Step 4 : Instead of `synth -top` to get sub module level syntheies we give the command `synth -top sub_module1`\
+\
+![day2_37](https://user-images.githubusercontent.com/84860957/120083122-3f2e2f80-c0e4-11eb-8df0-de240a0a184d.JPG)\
+\
+again follow the Step 5 and Step 6.We get the logic diagram of sub_module1 \
+\
+![day2_38](https://user-images.githubusercontent.com/84860957/120083215-b6fc5a00-c0e4-11eb-9c48-5a194548106a.JPG)\
+\
+![day2_39](https://user-images.githubusercontent.com/84860957/120083230-d1cece80-c0e4-11eb-95f1-78485de5fcbb.JPG)\
+\
+##### Why we use Sub Module level synthesis 
+- When we want to use multiple instances of the same module.
+- We want to do divide and conquer approch if we have a massive design.
+
+*Note*
+> *`Synth -top` controls which module to synthesis*.\
+> *`flatten` is used for flattening the netlist*.
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
