@@ -814,7 +814,8 @@ Now we compare the simultion with the RTL design and after synthesis Netlist sim
 \
 We can clearly see that the value of d = 0 for the same case where a = 0,b = 0 and c = 1.\
 This is Synthesis Simulation Mismatch caused by Blocking statement.\
-Please be very carefull before using blocking statements for Sequential Circuits.
+*Note*
+> *Please be very carefull before using blocking statements for Sequential Circuits*.
 
 
 
