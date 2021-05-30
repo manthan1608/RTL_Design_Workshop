@@ -2,7 +2,7 @@
 # RTL_Design_Using_Verilog_with_SKY130_Technology_Workshop
 This is a repository on RTL Design using Verilog with Sky130 Technology workshop conducted by VSD.It is a day by day log including examples from Lab sessions and Theory sessions
 ## Table of Content
-<details>
+<Details>
 - [Introduction](#Introduction)
 - [Day 1 Introduction to Verilog RTL Design and Synthesis](#Day-1-Introduction-to-Verilog-RTL-Design-and-Synthesis)
 - [Day 2 Timing libs Hierarical vs Flat Synthesis and efficient Flop Coding Styles](#Day-2-Timing-libs-Hierarical-vs-Flat-Synthesis-and-efficient-Flop-Coding-Styles)
@@ -12,7 +12,7 @@ This is a repository on RTL Design using Verilog with Sky130 Technology workshop
 - [Observations](#Observations)
 - [Acknowledgement](#Acknowledgement)
 - [References](#References)
-
+</Details>
 
 ## Introduction
 This Workshop intends to teach basics of digital design using verilog language, various RTL coding styles,synthesis and problems faced by industry and how to solve them in Verilog using SKY130 Technology.\
