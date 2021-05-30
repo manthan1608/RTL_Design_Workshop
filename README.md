@@ -245,7 +245,7 @@ Some details which are provided in the .lib file are
 \
 *Note*
 > Here we observe that 
-> area(and2_4) >area(and2_2)>area(and2_0) 
+> area(and2_4) >area(and2_2)>area(and2_0)\ 
 > power(and2_4)>power(and2_2)>power(and2_0)
 
 ### Hierarchical vs Flat Synthesis
