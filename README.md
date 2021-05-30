@@ -31,7 +31,7 @@ We have used iverilog in this workshop for simulation.\
 Design is the actual Verilog Code or set of verilog codes which has the intended functionality to meet with the required specifications.
 ***TestBench***\
 TestBench is setup toapply stimulus (test vectors) to the design to check its Functionality.\
-How the Simulator Works ?\
+**How the Simulator Works ?**
 - Simulator looks for chenges in input signal.
 - Upon change in input the output is observed.
    * If there is no change to the input there will be no change to the output.
@@ -56,30 +56,34 @@ Before cloning we can create directory *vsd* and inside it another directory *VL
 ![day1_3](https://user-images.githubusercontent.com/84860957/119930591-59112a80-bf9d-11eb-9219-c4e22f6ac0a0.JPG)\
 After creating the *VLSI* directory. We have to clone a repository named [sky130RTLDesignAndSynthesisWorkshop](https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop) which contains the required library files and verilog design files to perform the simulations and logic synthesis parts of the workshop. It can be done using by using basic linux command `git clone` `git clone https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop.git` as demonstrated 
 ![day1_4](https://user-images.githubusercontent.com/84860957/119931069-4f3bf700-bf9e-11eb-8704-5f452f013bb3.JPG)\
-After succesfully cloning it creates a sky130RTLDesignAndSynthesisWorkshop directory inside the VLSI directory. It contains various files required for this workshop you can explore the files such as my_lib which contains the library files lib and verilog_model.verilog_files which contains various verilog codes and its testbench files for all the lab expirements.\
+After succesfully cloning it creates a **sky130RTLDesignAndSynthesisWorkshop** directory inside the VLSI directory. It contains various files required for this workshop you can explore the files such as my_lib which contains the library files lib and verilog_model.verilog_files which contains various verilog codes and its testbench files for all the lab expirements.\
 \
 ![day1_5](https://user-images.githubusercontent.com/84860957/119931749-97a7e480-bf9f-11eb-8251-bbacd731393d.JPG)\
 \
 ![day1_6](https://user-images.githubusercontent.com/84860957/119931833-c625bf80-bf9f-11eb-9828-cc3df4326cd1.JPG)\
 \
 ![day1_7](https://user-images.githubusercontent.com/84860957/119932080-44826180-bfa0-11eb-91d3-32974ad790c7.JPG)\
-
+\
 *Lab2*\
 In this Lab we are introduced to ***iverilog*** and ***GTKwave***.\
-Step 1 : We use the command `iverilog` to load the simulator follwed by the verilog file and testbench name. `a.out` file is created in the verilog_files folder
+Step 1 : We use the command `iverilog` to load the simulator follwed by the verilog file and testbench name. `a.out` file is created in the verilog_files folder\
+\
 ![day1_8](https://user-images.githubusercontent.com/84860957/119934359-47328600-bfa3-11eb-8da5-bf84c6665f7c.JPG)\
 \
-Step 2 : After creating a.out file we execute it using `./a.out` it is going to dump the *vcd* file \
+Step 2 : After creating a.out file we execute it using `./a.out` it is going to dump the *vcd* file\
+\
 ![day1_9](https://user-images.githubusercontent.com/84860957/119934727-e0619c80-bfa3-11eb-86db-e8d59ee90e4d.JPG)\
 \
-Step 3 : Then we write the command `gtkwave` followed by the vcd file name like `gtkwave tb_good_mux.vcd` \
+Step 3 : Then we write the command `gtkwave` followed by the vcd file name like `gtkwave tb_good_mux.vcd`\
+\
 ![day1_10](https://user-images.githubusercontent.com/84860957/119935621-692d0800-bfa5-11eb-9e0f-52e7fa85a15e.JPG)\
 \
 We get the following waveform of a 2:1 Multiplexer when sel = 0 output follows i0 and when sel = 1 output follows i1  in the GTKWaveform viewer\
-
+\
 ![day1_11](https://user-images.githubusercontent.com/84860957/119935442-22d7a900-bfa5-11eb-99fe-d9c360cdff42.JPG)\
 \
-We also observe the verilog code of the good_mux.v and tb_good_mux.v by using the command `gedit` (also `vim` and `gvim` can be used in systems where gvim it is installed)
+We also observe the verilog code of the good_mux.v and tb_good_mux.v by using the command `gedit` (also `vim` and `gvim` can be used in systems where gvim it is installed)\
+\
 ![day1_12](https://user-images.githubusercontent.com/84860957/119936874-76e38d00-bfa7-11eb-9922-7bd95a6df536.JPG)\
 \
 We get the good_mux.v verilog code .There are various codes to generate a MUX we have used the `if` statement for it \
@@ -111,7 +115,7 @@ The GTKwave should be as we found in the case of design simulation as Netlist is
 
 ***Logic Synthesis*** \
 *RTL design* \
-It is the Behavioral Representation of required specification like the verilog HDL code below\
+It is the Behavioral Representation of required specification like the verilog HDL code below
 ```verilog
 module sample_code(
 input clk,rst,
@@ -179,7 +183,7 @@ Step 3 : Then read the design using the command `read_verilog`.\
 \
 ![day1_20](https://user-images.githubusercontent.com/84860957/119947880-dea0d480-bfb5-11eb-8bdb-9e23a1f5d161.JPG)\
 \
-Step 4 :after the design is read successfully we use use the command `synth -top` for telling what module to synthsize\
+Step 4 : After the design is read successfully we use use the command `synth -top` for telling what module to synthsize\
 \
 ![day1_21](https://user-images.githubusercontent.com/84860957/119948465-7e5e6280-bfb6-11eb-9489-3f069303602f.JPG)\
 \
@@ -198,6 +202,7 @@ Step 6 : Now to see the Logic it has realised type the command `show`\
 ![day1_25](https://user-images.githubusercontent.com/84860957/119949813-e1042e00-bfb7-11eb-8198-a36287935281.JPG)\
 \
 We get the following Logic Implementation.\
+\
 ![day1_26](https://user-images.githubusercontent.com/84860957/119950105-27598d00-bfb8-11eb-9ee4-ac1e96c5f384.JPG)\
 \
 In the Logic Circuit generated we observe
@@ -244,9 +249,12 @@ Some details which are provided in the .lib file are
 ![day2_24](https://user-images.githubusercontent.com/84860957/120078089-5d3b6600-c0cb-11eb-9b3f-f154cff3b464.png)\
 \
 *Note*
-> Here we observe that 
-> area(and2_4) >area(and2_2)>area(and2_0)
-> power(and2_4)>power(and2_2)>power(and2_0)
+> *Here we observe that*
+> 
+> *area(and2_4) >area(and2_2)>area(and2_0)*
+> 
+> *power(and2_4)>power(and2_2)>power(and2_0)*
+
 
 ### Hierarchical vs Flat Synthesis
 In this section we explore through the Hierarical and Flat synthesis.\
@@ -311,13 +319,13 @@ Step 7 : Now to get the netlist we give the `write_verilog -attr` command\
 We see that all the hierarchies are preserved and to avoid stacked PMOS the logic is implemented using NAND gates.\
 \
 *Note*
-> *Stacked PMOS is always bad because PMOS has poor mobility and to improve this we have to make the cell alot wide cell to get good logical effort.
+> *Stacked PMOS is always bad because PMOS has poor mobility and to improve this we have to make the cell alot wide cell to get good logical effort*.
 
 Step 8 : We use `flatten` to write out he flat netlist.And again use `write_verilog -attr` to get the flattened netlist.\
 \
 ![day2_35](https://user-images.githubusercontent.com/84860957/120082814-aba82f00-c0e2-11eb-9830-4515c10033bc.JPG)\
 \
-In this case the hierarchy is not preserved but are flattened out. We can see the logic diagram flattened as below
+In this case the hierarchy is not preserved but are flattened out. We can see the logic diagram flattened as below\
 \
 ![day2_36](https://user-images.githubusercontent.com/84860957/120082884-16f20100-c0e3-11eb-8e9f-f2e96955816a.JPG)\
 \
@@ -329,7 +337,7 @@ Step 4 : Instead of `synth -top` to get sub module level syntheies we give the c
 \
 ![day2_37](https://user-images.githubusercontent.com/84860957/120083122-3f2e2f80-c0e4-11eb-8df0-de240a0a184d.JPG)\
 \
-again follow the Step 5 and Step 6.We get the logic diagram of sub_module1 \
+again follow the Step 5 and Step 6.We get the logic diagram of sub_module1.\
 \
 ![day2_38](https://user-images.githubusercontent.com/84860957/120083215-b6fc5a00-c0e4-11eb-9c48-5a194548106a.JPG)\
 \
@@ -516,13 +524,15 @@ For dff_const1.v\
 ![image](https://user-images.githubusercontent.com/84860957/119997841-c64cac00-bfed-11eb-89b6-2580597a786e.png)\
 \
 We get the following logic design\
+\
 ![image](https://user-images.githubusercontent.com/84860957/119997995-ebd9b580-bfed-11eb-902f-df06a98134ad.png)\
 \
 The standard cell library is expecting the reset to be active low but we have coded a active high reset so the tool is inferring a inverter.\
 \
 Now we synthesis  dff_const2.v file\
 \
-We observe that it has not inferred any flop in this case contradictory to dff_const2.v
+We observe that it has not inferred any flop in this case contradictory to dff_const2.v\
+\
 ![day3_22](https://user-images.githubusercontent.com/84860957/120008671-d0c07300-bff8-11eb-892e-b4f28c7b90a7.JPG)\
 \
 ![image](https://user-images.githubusercontent.com/84860957/120007529-a3bf9080-bff7-11eb-89e1-6aff77fa364c.png)\
@@ -532,7 +542,7 @@ Now let us take dff_const.v file\
 ![day3_23](https://user-images.githubusercontent.com/84860957/120013530-7aeec980-bffe-11eb-836b-37b080a20c91.JPG)\
 \
 By observing the code we see that Q1 and Q both cannot be optimized so both the flops will be present in the Circuit.\
-So first let us simulate our design \
+So first let us simulate our design\
 \
 ![day3_24](https://user-images.githubusercontent.com/84860957/120014737-0d439d00-c000-11eb-8806-08fa7f0448c8.JPG)\
 \
