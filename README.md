@@ -8,6 +8,9 @@ This is a repository on RTL Design using Verilog with Sky130 Technology workshop
 - [Day 3 Combinational and sequential optimization](#Day-3-Combinational-and-sequential-optimization)
 - [Day 4 GLS blocking vs non blocking and Synthesis Simulation mismatch](#Day-4-GLS-,blocking-vs-non-blocking-and-Synthesis-Simulation-mismatch)
 - [Day 5 Optimization in synthesis](#Day-5-Optimization-in-synthesis)
+- [Observations](#Observations)
+- [Acknowledgement](#Acknowledgement)
+- [References](#References)
 
 
 ## Introduction
@@ -1398,6 +1401,34 @@ Now let simulate using the step followed above. In this case before compiling rc
 After Simulation we get the following waveform\
 \
 ![day5_30](https://user-images.githubusercontent.com/84860957/120102466-cfae5380-c168-11eb-91cc-378dd4da5883.JPG)
+# Observations
+Some of the observations made during the lab session and group discussion of the workshop
+- While reading the library file if we miss the keyword `-lib` we get this kind of error
+  * ![day5_31](https://user-images.githubusercontent.com/84860957/120105020-dd69d600-c174-11eb-9d6f-64fac68d45c8.JPG)
+  * So we conclude that `-lib` keyword is used for identifying logic operations 
+  
+
+- In the synthesis process if we do not map it to standard cell using `abc -liberty` and instead give the command `show` 
+  * for example take ternary_operator_mux.v 
+  * without abc command and directly`show` we get
+  * ![day5_32](https://user-images.githubusercontent.com/84860957/120105195-8e707080-c175-11eb-8644-78729f795bc2.JPG)
+  * with abc command and then `show` we get
+  * ![day5_33](https://user-images.githubusercontent.com/84860957/120105278-e018fb00-c175-11eb-9c7d-8fa3fdbaa827.JPG)
+  * So we conclude that abc links the module to the basic logic gate  using which it the module is formed.
+
+- When we want to see the netlist we open the *_net.v file*
+- `write_verilog -noattr < _net.v file_name>` after which if we read the file using `gedit` we get the netlist file.
+- `dfflibmap` is used to map the sequential circuit codes with standard cell library file  
+
+
+# Acknowledgements 
+- [Kunal Ghosh](https://github.com/kunalg123) 
+- [Shon Taware](https://github.com/ShonTaware)
+
+# References 
+- [Sky130 Technology](https://skywater-pdk.readthedocs.io/en/latest/)
+- [iverilog simulator](http://iverilog.icarus.com/)
+- [VLSI System Design Corporation](https://www.vlsisystemdesign.com/vsd-iat/)
 
 
 
