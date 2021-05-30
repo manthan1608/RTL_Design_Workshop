@@ -344,32 +344,46 @@ again follow the Step 5 and Step 6.We get the logic diagram of sub_module1 \
 
 ### Various Flop Coding Styles and Optimization.
 
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Let us understand this concept using an example.\
+Take dff_asynres.v
+```verilog
+module dff_asyncres ( input clk ,  input async_reset , input d , output reg q );
+always @ (posedge clk , posedge async_reset)
+begin
+	if(async_reset)
+		q <= 1'b0;
+	else	
+		q <= d;
+end
+endmodule
+```
+Now let simulate it using the same steps above\
+\
+After Simulation we get the following waveform\
+\
+![day2_40](https://user-images.githubusercontent.com/84860957/120106881-646e7c80-c17c-11eb-8db1-e1bf3193c246.JPG)\
+\
+We observe from the waveform that when reset went zero the output q did not wait for the rising edge of the clock to change its value to 0 it immediately became 0.\
+\
+Now let us take the dff_syncres.v
+```verilog
+module dff_syncres ( input clk , input async_reset , input sync_reset , input d , output reg q );
+always @ (posedge clk )
+begin
+	if (sync_reset)
+		q <= 1'b0;
+	else	
+		q <= d;
+end
+endmodule
+```
+Now let simulate it using the same steps above\
+\
+After Simulation we get the following waveform\
+\
+![day2_41](https://user-images.githubusercontent.com/84860957/120107209-bebc0d00-c17d-11eb-9880-169a4b148c12.JPG)\
+\
+We observe that after output q waits for rising edge of clk to change the value after reset is high.
 
 ## Day 3 Combinational and sequential optimization
 ### Introduction to Logic Optimisation
@@ -1417,8 +1431,11 @@ Some of the observations made during the lab session and group discussion of the
   * So we conclude that abc links the module to the basic logic gate  using which it the module is formed.
 
 - When we want to see the netlist we open the *_net.v file*
-- `write_verilog -noattr < _net.v file_name>` after which if we read the file using `gedit` we get the netlist file.
-- `dfflibmap` is used to map the sequential circuit codes with standard cell library file  
+- `write_verilog -noattr < _net.v file_name>` after which if we read the file using `gedit` we get the netlist file
+  * if we do not write `-noattr` we get a small difference
+  * ![day5_36](https://user-images.githubusercontent.com/84860957/120106498-bd3d1580-c17a-11eb-8965-05898c761f98.JPG)
+- `dfflibmap` is used to map the sequential circuit codes with standard cell library file 
+- Every new version of the yosys tool comes with its own optimization techniques.So many times the implementations will differ in dfferent version.
 
 
 # Acknowledgements 
