@@ -400,7 +400,7 @@ Logic Optimisation contains mainly 2 parts
 1. Combination Logic Optimisation
 2. Sequential Logic Optimisation
 #### Combinational Logic optimisation
--We need combinational logic optimisation to squeeze the logic to get the most optimised design 
+- We need combinational logic optimisation to squeeze the logic to get the most optimised design 
    * Mainly for Area and Power Saving
 - Constant Propogation is one of the technique used for Combinational Logic Optimisation 
     * It is a Direct Optimisation in which the value of one input is propogated to the next stage  to get the most optimised logic.
