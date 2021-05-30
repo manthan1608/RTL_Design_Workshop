@@ -6,7 +6,8 @@ This is a repository on RTL Design using Verilog with Sky130 Technology workshop
 - [Day 1 Introduction to Verilog RTL Design and Synthesis](#Day-1-Introduction-to-Verilog-RTL-Design-and-Synthesis)
 - [Day 2 Timing libs , Hierarical vs Flat Synthesis and efficient Flop Coding Styles](#Day-2-Timing-libs-,-Hierarical-vs-Flat-Synthesis-and-efficient-Flop-Coding-Styles)
 - [Day 3 Combinational and sequential optimization](#Day-3-Combinational-and-sequential-optimization)
-- [Day 4 - GLS,blocking vs non blocking and Synthesis Simulation mismatch](#Day-4-GLS-blocking-vs-non-blocking-and-Synthesis-Simulation-mismatch)
+- [Day 4 GLS,blocking vs non blocking and Synthesis Simulation mismatch](#Day-4-GLS-blocking-vs-non-blocking-and-Synthesis-Simulation-mismatch)
+- [Day 5 Optimization in synthesis](
 
 
 ## Introduction
@@ -571,7 +572,7 @@ The logic other than the flops is the incremental logic.\
 The given Logic diagram contains 3 flops .We get the expression of q = count[2] . count[1]'.count[0]' so it is using all the primary outputs so it uses all the flops.\
 So we conclude that all the outputs that have no role in determining the primary output are optimized away using Unused Output Optimisation.
 
-## Day 4 - GLS, blocking vs non-blocking and Synthesis-Simulation mismatch
+## Day 4 GLS,blocking vs non blocking and Synthesis Simulation mismatch
 ### Introduction to GLS
 #### What is GLS 
 - It stands for Gate Level Simulation.
@@ -986,6 +987,9 @@ We can clearly see that the value of d = 0 for the same case where a = 0,b = 0 a
 This is Synthesis Simulation Mismatch caused by Blocking statement.\
 *Note*
 > *Please be very carefull before using blocking statements for Sequential Circuits*.
+
+
+##
 
 
 
