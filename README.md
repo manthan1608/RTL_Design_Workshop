@@ -1442,6 +1442,8 @@ Some of the observations made during the lab session and group discussion of the
 # Acknowledgements 
 - [Kunal Ghosh](https://github.com/kunalg123) 
 - [Shon Taware](https://github.com/ShonTaware)
+- Mukesh Nadar(
+- Tapan Das
 
 # References 
 - [Sky130 Technology](https://skywater-pdk.readthedocs.io/en/latest/)
