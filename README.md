@@ -1271,6 +1271,17 @@ No latch inferred for the design\
 \
 ![day5_22](https://user-images.githubusercontent.com/84860957/120096834-40467780-c14b-11eb-9e50-f875f8f2d63c.JPG)\
 \
+Now Let us do the GLS\
+\
+Step 1 : Use `write_verilog` to the netlist\
+\
+![day5_23](https://user-images.githubusercontent.com/84860957/120097054-1b9ecf80-c14c-11eb-97f2-74364f98a872.JPG)\
+\
+Step 2 : Open iverilog with verilog models,netlist and testbench using the command `iverilog`. In the lib folder you will find the verilog models of the standard cells.Execute a.out file using `./a.out` \
+\
+![day5_24](https://user-images.githubusercontent.com/84860957/120097313-5fde9f80-c14d-11eb-95c4-00225707a9e1.JPG).
+
+
 
 
 
