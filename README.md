@@ -218,9 +218,9 @@ We have used sky130_fd_sc_hd__tt_025C_1v80 for which meaning of each abbreviatio
 - 025C - temperature
 - 1v - voltage
 *Note*
-> library in the sky130 pdk are named using the following scheme:
+> *library in the sky130 pdk are named using the following scheme*:
 
-> process name _ library source _ library type _ library name
+> *process name _ library source _ library type _ library name*
 
 Here is sample of .lib file\
 \
