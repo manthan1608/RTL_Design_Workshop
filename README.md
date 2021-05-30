@@ -64,13 +64,13 @@ After succesfully cloning it creates a sky130RTLDesignAndSynthesisWorkshop direc
 
 *Lab2*\
 In this Lab we are introduced to ***iverilog*** and ***GTKwave***.\
-We use the command `iverilog` to load the simulator follwed by the verilog file and testbench name. `a.out` file is created in the verilog_files folder
+Step 1 : We use the command `iverilog` to load the simulator follwed by the verilog file and testbench name. `a.out` file is created in the verilog_files folder
 ![day1_8](https://user-images.githubusercontent.com/84860957/119934359-47328600-bfa3-11eb-8da5-bf84c6665f7c.JPG)\
 \
-After creating a.out file we execute it using `./a.out` it is going to dump the *vcd* file \
+Step 2 : After creating a.out file we execute it using `./a.out` it is going to dump the *vcd* file \
 ![day1_9](https://user-images.githubusercontent.com/84860957/119934727-e0619c80-bfa3-11eb-86db-e8d59ee90e4d.JPG)\
 \
-Then we write the command `gtkwave` followed by the vcd file name like `gtkwave tb_good_mux.vcd` \
+Step 3 : Then we write the command `gtkwave` followed by the vcd file name like `gtkwave tb_good_mux.vcd` \
 ![day1_10](https://user-images.githubusercontent.com/84860957/119935621-692d0800-bfa5-11eb-9e0f-52e7fa85a15e.JPG)\
 \
 We get the following waveform of a 2:1 Multiplexer when sel = 0 output follows i0 and when sel = 1 output follows i1  in the GTKWaveform viewer\
