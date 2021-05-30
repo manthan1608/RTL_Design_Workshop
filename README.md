@@ -991,7 +991,7 @@ This is Synthesis Simulation Mismatch caused by Blocking statement.\
 
 ## Day 5 Optimization in synthesis
 In this section we will study about *if* and *case* Statement and there uses as well as there disadvantages.
-### If Case Constructs
+### If Statement
 - if is basically a priority logic
 ```verilog
 if<cond>
@@ -1030,9 +1030,275 @@ end
 ```
 The Hardware Implementation of these statement is as shown in the image below.
 ![image](https://user-images.githubusercontent.com/84860957/120093013-e2a73080-c134-11eb-9d87-4965115c9a02.png)\
-\
 #### Caution with if statement
 - inferred latches --> it is a bad coding style and occurs due to incomplete if statement
+  * Sometimes we need the inferred latch like in the case of counters if there is no enable the counter should latch on to the previous value.
+
+*Note*
+> *In Combinational Circuit we cannot have a inferred latch.*
+>  *Whatever variable you are trying to assign should be register variable.*
+### Case Statement
+- if and case statement are used inside the always block
+```verilog
+reg y
+always @ (*)
+begin
+	case(sel)
+		2'b00:begin
+		      ....
+		      end
+		2'b01:begin
+		      ....
+		      end
+		      .
+		      .
+		      .
+	endcase	
+```
+- Hardware implementation of Case statement is a MUX.
+#### Caution with case statement
+- inferred latches --> it is a bad coding style and occurs due to incomplete case statements
+  * The solution for inferred latches is code Case with default condition
+  * With default condiation it avoids the inferred latches
+
+***LAB Session***\
+*Lab 1*\
+In this session we will use the if statement and incomplete if statement.\
+\
+We first take the code incom_if.v \
+```verilog
+module incomp_if (input i0 , input i1 , input i2 , output reg y);
+always @ (*)
+begin
+	if(i0)
+		y <= i1;
+end
+endmodule
+```
+- We observe that in this code there is no else statement.
+Now let simulate and synthesis it.\
+\
+Step 1  : Use `iverilog` to generate the a.out file for simulation\
+\
+![day5_1](https://user-images.githubusercontent.com/84860957/120094319-4897b600-c13d-11eb-9da3-55a538384a95.JPG)\
+\
+Step 2 : Execute the a.out file to get the vcd file\
+\
+![day5_2](https://user-images.githubusercontent.com/84860957/120094344-711fb000-c13d-11eb-8471-4d6536797416.JPG)\
+\
+Step 3 : Use `gtkwave` to view the waveform of gcd file\
+\
+![day5_3](https://user-images.githubusercontent.com/84860957/120094444-002cc800-c13e-11eb-8621-df020ec68543.JPG)\
+We observe that whenever i0 is low the value of y is latched as it is constant.\
+\
+Now let us go for synthesis.\
+\
+Step 1 : Invoke yosys using `yosys`\
+\
+![day4_5](https://user-images.githubusercontent.com/84860957/120079016-ae4d5900-c0cf-11eb-87e8-a014b104fcfe.JPG)\
+\
+Step 2 : Read liberty file using `read_liberty`\
+\
+![day4_6](https://user-images.githubusercontent.com/84860957/120079082-02f0d400-c0d0-11eb-86d8-5edac4bdf2dc.JPG)\
+\
+Step 3 : Read verilog file using `read_verilog`\
+\
+![day5_4](https://user-images.githubusercontent.com/84860957/120094587-d4f6a880-c13e-11eb-9e30-04d8536dc578.JPG)\
+\
+Step 4 : For starting the synthsis process use `synth -top` and also observe the inferences\
+\
+![day5_5](https://user-images.githubusercontent.com/84860957/120094642-2b63e700-c13f-11eb-9a74-c0f68838f5e1.JPG)\
+\
+![day5_6](https://user-images.githubusercontent.com/84860957/120094717-b8a73b80-c13f-11eb-8dc0-a16431badb2a.JPG)\
+\
+Step 5 : Now to map to standard cell we use `abc -liberty`\
+\
+![day5_7](https://user-images.githubusercontent.com/84860957/120094774-002dc780-c140-11eb-9142-5eeab14763f8.JPG)\
+\
+Step 6 : Now to see the Logic design we give the command `show`\
+\
+![day5_8](https://user-images.githubusercontent.com/84860957/120094837-58fd6000-c140-11eb-81ab-6bb95f05a4fa.JPG)\
+\
+It is a D latch. This is the danger of incomplete if we get a latch instead of mux. This is called as inferred latch.\
+\
+*Lab 2*\
+Now let us see the case statement and incomplete case statements.\
+\
+We first take the code incom_if.v.\
+```verilog 
+module incomp_case (input i0 , input i1 , input i2 , input [1:0] sel, output reg y);
+always @ (*)
+begin
+	case(sel)
+		2'b00 : y = i0;
+		2'b01 : y = i1;
+	endcase
+end
+endmodule
+```
+- We observe that there is no case for when sel = 10 and 11.
+Now let simulate and synthesis it.\
+\
+Step 1  : Use `iverilog` to generate the a.out file for simulation\
+\
+![day5_9](https://user-images.githubusercontent.com/84860957/120095286-c90ce580-c142-11eb-8454-23bfbe996dad.JPG)\
+\
+Step 2 : Execute the a.out file to get the vcd file\
+\
+![day5_10](https://user-images.githubusercontent.com/84860957/120095326-fc4f7480-c142-11eb-8d0d-806e9d1b601c.JPG)\
+\
+Step 3 : Use `gtkwave` to view the waveform of gcd file\
+\
+![day5_11](https://user-images.githubusercontent.com/84860957/120095405-7aac1680-c143-11eb-9ba6-d90d800cf3ac.JPG)\
+\
+When the Value of sel = 10 and 11 it latches on to the value of previous state.\
+\
+Now let us go for synthesis.\
+\
+Step 1 : Invoke yosys using `yosys`\
+\
+![day4_5](https://user-images.githubusercontent.com/84860957/120079016-ae4d5900-c0cf-11eb-87e8-a014b104fcfe.JPG)\
+\
+Step 2 : Read liberty file using `read_liberty`\
+\
+![day4_6](https://user-images.githubusercontent.com/84860957/120079082-02f0d400-c0d0-11eb-86d8-5edac4bdf2dc.JPG)\
+\
+Step 3 : Read verilog file using `read_verilog`\
+\
+![day5_12](https://user-images.githubusercontent.com/84860957/120095525-205f8580-c144-11eb-9157-492ce0729d6c.JPG)\
+\
+Step 4 : For starting the synthsis process use `synth -top` and also observe the inferences\
+\
+![day5_13](https://user-images.githubusercontent.com/84860957/120095575-51d85100-c144-11eb-8e78-038dbe000343.JPG)\
+\
+![day5_14](https://user-images.githubusercontent.com/84860957/120095687-e478f000-c144-11eb-8f1e-fa5f6a7d951c.JPG)\
+\
+Step 5 : Now to map to standard cell we use `abc -liberty`\
+\
+![day5_15](https://user-images.githubusercontent.com/84860957/120095653-ab408000-c144-11eb-8e9d-49c0220ac596.JPG)
+\
+Step 6 : Now to see the Logic design we give the command `show`\
+\
+![day5_16](https://user-images.githubusercontent.com/84860957/120095730-1f7b2380-c145-11eb-8dff-328645b84b17.JPG)\
+\
+There is a D latch in the circuit.This is the danger of incomplete case we get a latch instead of mux. This is called as inferred latch.\
+\
+If we consider the comp_case.v
+```verilog 
+module comp_case (input i0 , input i1 , input i2 , input [1:0] sel, output reg y);
+always @ (*)
+begin
+	case(sel)
+		2'b00 : y = i0;
+		2'b01 : y = i1;
+		default : y = i2;
+	endcase
+end
+endmodule
+```
+- As there is a default statement there will be no latch involved in this design.
+Now let simulate and synthesis it using the same steps above and conclude our finding.\
+\
+After Simulation we get the following waveform\
+\
+![day5_17](https://user-images.githubusercontent.com/84860957/120095895-248ca280-c146-11eb-94fc-be6a867ba324.JPG)\
+\
+This waveform clearly suggest that there is no latch involved and it a pure MUX circuit.\
+\
+After Synthesis we get the following design\
+\
+![day5_18](https://user-images.githubusercontent.com/84860957/120096029-d75d0080-c146-11eb-8dfe-b6447cffaecf.JPG)\
+\
+- Clearly we can see there is latching action when sel = 10 and 11 the output is i2.
+
+If we consider the partial_case_assign.v
+```verilog
+module partial_case_assign (input i0 , input i1 , input i2 , input [1:0] sel, output reg y , output reg x);
+always @ (*)
+begin
+	case(sel)
+		2'b00 : begin
+			y = i0;
+			x = i2;
+			end
+		2'b01 : y = i1;
+		default : begin
+		           x = i1;
+			   y = i2;
+			  end
+	endcase
+end
+endmodule
+```
+- Even if assign default statement it does not gurantee that latches are not inferred.
+Now let synthesis it using the same steps above and conclude our finding.\
+\
+After Synthesis we get the following design\
+\
+![day5_19](https://user-images.githubusercontent.com/84860957/120096317-61f22f80-c148-11eb-9ce0-9a22a4a6c117.JPG)\
+\
+- Clearly we see there no latch in the path of x but in the path of y there is latch as condition for 01 is not defined.
+If we consider bad_case.v
+```verilog
+module bad_case (input i0 , input i1, input i2, input i3 , input [1:0] sel, output reg y);
+always @(*)
+begin
+	case(sel)
+		2'b00: y = i0;
+		2'b01: y = i1;
+		2'b10: y = i2;
+		2'b1?: y = i3;
+		//2'b11: y = i3;
+	endcase
+end
+
+endmodule
+```
+- In this case for sel = 11 there are 2 options available i.e y=i2 and y=i3 this will cause some issue while simulating and synthesising it.
+Now let simulate and synthesis it using the same steps above and conclude our finding.\
+\
+After Simulation we get the following waveform\
+\
+![day5_20](https://user-images.githubusercontent.com/84860957/120096639-44be6080-c14a-11eb-82b9-1b6a266e9c00.JPG)\
+\
+The waveform clearly suggests that when sel = 11 it is getting confused and latching on to the value '1'as both condition 10 and 11 both are matching. \
+\
+After Synthesis we get the following design\
+\
+![day5_21](https://user-images.githubusercontent.com/84860957/120096818-30c72e80-c14b-11eb-839c-883cfbea4af4.JPG)\
+\
+No latch inferred for the design\
+\
+![day5_22](https://user-images.githubusercontent.com/84860957/120096834-40467780-c14b-11eb-9e50-f875f8f2d63c.JPG)\
+\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
