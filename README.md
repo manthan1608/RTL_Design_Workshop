@@ -2,19 +2,18 @@
 # RTL_Design_Using_Verilog_with_SKY130_Technology_Workshop
 This is a repository on RTL Design using Verilog with Sky130 Technology workshop conducted by VSD.It is a day by day log including examples from Lab sessions and Theory sessions
 ## Table of Content
-<Details>
-	- [Introduction](#Introduction)
-        - [Day 1 Introduction to Verilog RTL Design and Synthesis](#Day-1-Introduction-to-Verilog-RTL-Design-and-Synthesis)
-        - [Day 2 Timing libs Hierarical vs Flat Synthesis and efficient Flop Coding Styles](#Day-2-Timing-libs-Hierarical-vs-Flat-Synthesis-and-efficient-Flop-Coding-Styles)
-        - [Day 3 Combinational and sequential optimization](#Day-3-Combinational-and-sequential-optimization)
-        - [Day 4 GLS blocking vs non blocking and Synthesis Simulation mismatch](#Day-4-GLS-,blocking-vs-non-blocking-and-Synthesis-Simulation-mismatch)
-        - [Day 5 Optimization in synthesis](#Day-5-Optimization-in-synthesis)
-        - [Observations](#Observations)
-        - [Acknowledgement](#Acknowledgement)
-        - [References](#References)
+
+- [Introduction](#Introduction)
+- [Day 1 Introduction to Verilog RTL Design and Synthesis](#Day-1-Introduction-to-Verilog-RTL-Design-and-Synthesis)
+- [Day 2 Timing libs Hierarical vs Flat Synthesis and efficient Flop Coding Styles](#Day-2-Timing-libs-Hierarical-vs-Flat-Synthesis-and-efficient-Flop-Coding-Styles)
+- [Day 3 Combinational and sequential optimization](#Day-3-Combinational-and-sequential-optimization)
+- [Day 4 GLS blocking vs non blocking and Synthesis Simulation mismatch](#Day-4-GLS-,blocking-vs-non-blocking-and-Synthesis-Simulation-mismatch)
+- [Day 5 Optimization in synthesis](#Day-5-Optimization-in-synthesis)
+- [Observations](#Observations)
+- [Acknowledgement](#Acknowledgement)
+- [References](#References)
 	
 
-</Details>
 
 ## Introduction
 This Workshop intends to teach basics of digital design using verilog language, various RTL coding styles,synthesis and problems faced by industry and how to solve them in Verilog using SKY130 Technology.\
@@ -22,7 +21,7 @@ Some of the open source eda tools used in this Workshop are
 1. [iverilog](http://iverilog.icarus.com/) : It is Simulator which used for RTL Simulations and Gate Level Simulations.
 2. [yosys](http://www.clifford.at/yosys/) : It is a open source Synthesis tool used for synthesis of RTL Design.
 3. [Skywater](https://skywater-pdk.readthedocs.io/en/latest/rules/background.html): It is used as 130nm Standard Cell Libraries.
-
+ 
 ## Day 1 Introduction to Verilog RTL Design and Synthesis 
 ### Introduction to open source simulator iverilog
 ***Simulator***\
@@ -107,9 +106,6 @@ Commands for using Yosys
 *Verification of Synthesis*\
 \
 The GTKwave should be as we found in the case of design simulation as Netlist is just the cell representation of design they both are basically the same.\
-\
-![day1_15](https://user-images.githubusercontent.com/84860957/119940129-62ee5a00-bfac-11eb-9369-ad7f104fd2da.JPG)\
-\
 *Note*
 >*The set of Primary inputs/primary outputs will remain same between RTL design and Synthesized Netlist --> Same Testbench can be used*.
 
