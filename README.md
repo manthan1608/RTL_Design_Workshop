@@ -7,7 +7,7 @@ This is a repository on RTL Design using Verilog with Sky130 Technology workshop
 - [Day 2 Timing libs , Hierarical vs Flat Synthesis and efficient Flop Coding Styles](#Day-2-Timing-libs-,-Hierarical-vs-Flat-Synthesis-and-efficient-Flop-Coding-Styles)
 - [Day 3 Combinational and sequential optimization](#Day-3-Combinational-and-sequential-optimization)
 - [Day 4 GLS,blocking vs non blocking and Synthesis Simulation mismatch](#Day-4-GLS-blocking-vs-non-blocking-and-Synthesis-Simulation-mismatch)
-- [Day 5 Optimization in synthesis](#Day 5 Optimization in synthesis)
+- [Day 5 Optimization in synthesis](#Day-5-Optimization-in-synthesis)
 
 
 ## Introduction
