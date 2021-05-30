@@ -213,7 +213,7 @@ In the Logic Circuit generated we observe
 We get the Output from the logic circuit as y = i<sub>1</sub> sel +i<sub>0</sub> sel' which is the logic for 2 input Multiplexer.
 
 
-## Day 2 Timing libs , Hierarical vs Flat Synthesis and efficient Flop Coding Styles
+## Day 2 Timing libs Hierarical vs Flat Synthesis and efficient Flop Coding Styles
 ### Introduction to .lib
 We have used sky130_fd_sc_hd__tt_025C_1v80 for which meaning of each abbreviation is given below
 - fd - the skywater foundary
