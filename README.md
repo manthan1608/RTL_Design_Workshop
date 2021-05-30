@@ -600,7 +600,7 @@ The logic other than the flops is the incremental logic.\
 The given Logic diagram contains 3 flops .We get the expression of q = count[2] . count[1]'.count[0]' so it is using all the primary outputs so it uses all the flops.\
 So we conclude that all the outputs that have no role in determining the primary output are optimized away using Unused Output Optimisation.
 
-## Day 4 GLS,blocking vs non blocking and Synthesis Simulation mismatch
+## Day 4 GLS blocking vs non blocking and Synthesis Simulation mismatch
 ### Introduction to GLS
 #### What is GLS 
 - It stands for Gate Level Simulation.
