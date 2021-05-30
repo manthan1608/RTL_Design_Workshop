@@ -1028,6 +1028,12 @@ begin
 .....
 end
 ```
+The Hardware Implementation of these statement is as shown in the image below.
+![image](https://user-images.githubusercontent.com/84860957/120093013-e2a73080-c134-11eb-9d87-4965115c9a02.png)\
+\
+#### Caution with if statement
+- inferred latches --> it is a bad coding style and occurs due to incomplete if statement
+
 
 
 
