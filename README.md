@@ -35,10 +35,13 @@ TestBench is setup toapply stimulus (test vectors) to the design to check its Fu
 - Simulator looks for chenges in input signal.
 - Upon change in input the output is observed.
    * If there is no change to the input there will be no change to the output.
-- Simultor looks for changes in the Value of input.\
-The TestBench looks something like this 
-![day1_1](https://user-images.githubusercontent.com/84860957/119926834-c1f4a480-bf95-11eb-956d-3e86a5884e3b.JPG)
+- Simultor looks for changes in the Value of input.
 
+
+The TestBench looks something like this\
+\
+![day1_1](https://user-images.githubusercontent.com/84860957/120113197-056a3100-c197-11eb-89a3-6cd78ab1ba34.JPG)\
+\
 ***Note***: 
 > *Design may have 1 or more primary inputs,1 or more primary outputs.
 > TestBench doesn't have a Primary inputs or a primary outputs.*
@@ -51,10 +54,14 @@ The TestBench looks something like this
 
 ***LAB Session***\
 *Lab 1*\
+\
 It is introductory lab session in which we look at environment setup  for running the labs.\
-Before cloning we can create directory *vsd* and inside it another directory *VLSI* using the `mkdir` command as demonstrated below
+Before cloning we can create directory *vsd* and inside it another directory *VLSI* using the `mkdir` command as demonstrated below\
+\
 ![day1_3](https://user-images.githubusercontent.com/84860957/119930591-59112a80-bf9d-11eb-9219-c4e22f6ac0a0.JPG)\
-After creating the *VLSI* directory. We have to clone a repository named [sky130RTLDesignAndSynthesisWorkshop](https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop) which contains the required library files and verilog design files to perform the simulations and logic synthesis parts of the workshop. It can be done using by using basic linux command `git clone` `git clone https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop.git` as demonstrated 
+\
+After creating the *VLSI* directory. We have to clone a repository named [sky130RTLDesignAndSynthesisWorkshop](https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop) which contains the required library files and verilog design files to perform the simulations and logic synthesis parts of the workshop. It can be done using by using basic linux command `git clone` `git clone https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop.git` as demonstrated\
+\
 ![day1_4](https://user-images.githubusercontent.com/84860957/119931069-4f3bf700-bf9e-11eb-8704-5f452f013bb3.JPG)\
 After succesfully cloning it creates a **sky130RTLDesignAndSynthesisWorkshop** directory inside the VLSI directory. It contains various files required for this workshop you can explore the files such as my_lib which contains the library files lib and verilog_model.verilog_files which contains various verilog codes and its testbench files for all the lab expirements.\
 \
@@ -66,6 +73,7 @@ After succesfully cloning it creates a **sky130RTLDesignAndSynthesisWorkshop** d
 \
 *Lab2*\
 In this Lab we are introduced to ***iverilog*** and ***GTKwave***.\
+\
 Step 1 : We use the command `iverilog` to load the simulator follwed by the verilog file and testbench name. `a.out` file is created in the verilog_files folder\
 \
 ![day1_8](https://user-images.githubusercontent.com/84860957/119934359-47328600-bfa3-11eb-8da5-bf84c6665f7c.JPG)\
@@ -92,13 +100,14 @@ We get the good_mux.v verilog code .There are various codes to generate a MUX we
 \
 and the testbench tb_good_mux.v we can see the instantiation of design and the stimulus generator and it runs for 300ns. \
 \
-![day1_14](https://user-images.githubusercontent.com/84860957/119937709-e7d77480-bfa8-11eb-80e8-cba55d46780a.JPG)!
+![day1_14](https://user-images.githubusercontent.com/84860957/119937709-e7d77480-bfa8-11eb-80e8-cba55d46780a.JPG)
 
 **Introduction to yosys**\
 ***Sythesizer*** \
 It is a tool used for converting RTL to Netlist . We use ***Yosys*** synthsizer used in this course.\
 How does Yosys work ?\
-We have a design and .lib file and it is given to the yosys tool which gives out the netlist.
+We have a design and .lib file and it is given to the yosys tool which gives out the netlist.\
+\
 Commands for using Yosys
 - `read_verilog` --> To read the design.
 - `read_liberty` --> To read the .lib.
@@ -154,8 +163,8 @@ endmodule
  As the combinational delay in the logic path determinesthe maximum speed of operation of digital logic circuit i.e\
  T<sub>clk</sub> > T<sub>CQ_A</sub> + T<sub>combi</sub>+T<sub>Setup_B</sub> we need cells to work fast \
  And to ensure that there is no hold issue in the next flop we need slow cell and as hold time is given by\
- T<sub>Hold_B</sub> < T<sub>CQ_A + T<sub>combi</sub></sub>\ we need cell that work slowly.\
- We need cells that work fast to meet performance and cells that work slow to meet Hold time. So we need different flavours of gate to meet this requirement.The Collection forms .lib.\
+ T<sub>Hold_B</sub> < T<sub>CQ_A </sub>+ T<sub>combi</sub> we need cell that work slowly.\
+ We need cells that work fast to meet performance and cells that work slow to meet Hold time. So we need different flavours of gate to meet this requirement.The Collection forms *.lib*.\
  \
  *Note*
  >*Load in Digital Logic Circuit --> Capacitance*\
@@ -341,8 +350,7 @@ again follow the Step 5 and Step 6.We get the logic diagram of sub_module1.\
 \
 ![day2_38](https://user-images.githubusercontent.com/84860957/120083215-b6fc5a00-c0e4-11eb-9c48-5a194548106a.JPG)\
 \
-![day2_39](https://user-images.githubusercontent.com/84860957/120083230-d1cece80-c0e4-11eb-95f1-78485de5fcbb.JPG)\
-\
+![day2_39](https://user-images.githubusercontent.com/84860957/120083230-d1cece80-c0e4-11eb-95f1-78485de5fcbb.JPG)
 ##### Why we use Sub Module level synthesis 
 - When we want to use multiple instances of the same module.
 - We want to do divide and conquer approch if we have a massive design.
@@ -413,7 +421,7 @@ In Sequential Logic Optimisation there are 2 Techniques
    * Some of the Sequential design in which D input is tied off the Squential Constant is propogated to give Q pin as a Constant and gives the most optmised design of the Squential Circuits.
    * The Sequential Design in which Q does not remains as constant cannot be optimised and flop needs to be retained in the circuit.
    * *Note*
-    >*Every flop in which the D input is tied off is a sequential constant for the flop to become sequential constant the Q pin should always take a constant value*.
+     >*Every flop in which the D input is tied off is a sequential constant for the flop to become sequential constant the Q pin should always take a constant value*.
 2. Advanced (not a part of the workshop) 
  * State Optimisation
    * Optimisation of unused states.
@@ -423,7 +431,6 @@ In Sequential Logic Optimisation there are 2 Techniques
    * It is done when we are doing a Physical Aware Synthesis.
 
 ***LAB Session***\
-
 *Lab 1*\
 **Combinational Logic Optimisation**\
 In this Lab we are going to use all the 'opt_check' files which can be found by typing the command`ls *opt_check*`\
@@ -499,7 +506,6 @@ Here is the Verilog code for both\
 Step 1 : Let us simulate  before synthesizing for that we use iverilog and then excute the a.out file to get vcd file.\
 \
 ![image](https://user-images.githubusercontent.com/84860957/119993467-31e04a80-bfe9-11eb-8652-49a86e48e592.png)\
-\ 
 Step 2 : Use `gtkwave` to get the waveform\
 \
 ![image](https://user-images.githubusercontent.com/84860957/119994081-e1b5b800-bfe9-11eb-889b-2d5e21358af0.png)\
@@ -511,6 +517,7 @@ We observe that even after rst has become low Q waits for rising edge of the clo
 Now we Compare it with dff_const2.v\
 \
 We see that Q does not depend upon clk unlike in the case of dff_const1.v\
+\
 ![image](https://user-images.githubusercontent.com/84860957/119995765-8f759680-bfeb-11eb-9d32-db43bbeec350.png)\
 \
 Now let us Synthesis both the files\
@@ -546,7 +553,8 @@ So first let us simulate our design\
 \
 ![day3_24](https://user-images.githubusercontent.com/84860957/120014737-0d439d00-c000-11eb-8806-08fa7f0448c8.JPG)\
 \
-We can clearly see that both q and q1 do not remain constant and both change on the rising edge of the clock so the cannot be optimized
+We can clearly see that both q and q1 do not remain constant and both change on the rising edge of the clock so the cannot be optimized\
+\
 ![day3_25](https://user-images.githubusercontent.com/84860957/120015132-95c23d80-c000-11eb-8ea6-164df52c10c4.JPG)\
 \
 Now let us go ahead and do the synthesis of the circuit\
@@ -554,6 +562,7 @@ Now let us go ahead and do the synthesis of the circuit\
 ![day3_26](https://user-images.githubusercontent.com/84860957/120015830-711a9580-c001-11eb-8cc2-53e8368d19f7.JPG)\
 \
 We can clearly see it infers 2 flops\
+\
 ![day3_27](https://user-images.githubusercontent.com/84860957/120015915-90192780-c001-11eb-964e-eb486b88d96b.JPG)\
 \
 ![day3_28](https://user-images.githubusercontent.com/84860957/120016413-35340000-c002-11eb-99a4-1714313a0572.JPG)\
@@ -563,7 +572,7 @@ From the Logic diagram we have confirmed that 2 flops and also the 1st flop is a
 \
 Not every flop which is having constant at the input gets optimized we also need to look at set and the reset connections and see if q is constant or q values is going to change.\
 
-*Lab3*
+*Lab3*\
 Sequential Optimisation using Unused Output optimisation.\
 So let us consider the code counter_opt.v\
 \
@@ -573,13 +582,16 @@ When we look at code we see that it is a up-counter whenever there is reset it r
 The output of the circuit is count[2:0] but q = count[0]. count[1] and count[2] are unused. So this are not required in the logic diagram.\
 Let us synthesis this code.\
 \
-We clearly see only 1 flop is inferred even if it is 3 bit counter it should have inferred 3 flops \
+We clearly see only 1 flop is inferred even if it is 3 bit counter it should have inferred 3 flops\
+\
 ![day3_31](https://user-images.githubusercontent.com/84860957/120018717-2c90f900-c005-11eb-91c8-baeee37db3bc.JPG)\
 \
 As it is a sequential circuit we should use `dfflibmap -liberty ../my_lib/lib/<location of .lib file>`\
+\
 ![day3_32](https://user-images.githubusercontent.com/84860957/120019489-23545c00-c006-11eb-9e49-51344bcdfb11.JPG)\
 \
 We can clearly see that there is only 1 flop in the circuit design.We see count[0] is toggling so the output q is given to the inverter and feededback to the d pin.\
+\
 ![day3_33](https://user-images.githubusercontent.com/84860957/120019609-4aab2900-c006-11eb-8200-8fc05076ce49.JPG)\
 \
 So we can conclude that any logic which is not resulting in any primary output is optimised away.\
@@ -803,25 +815,35 @@ Let us consider the file ternary_operator_mux.v
 
 
 Now let us have a look at the code of  ternary_operator_mux.v\
+\
 ![day4_1](https://user-images.githubusercontent.com/84860957/120068523-b640d500-c09e-11eb-8ece-967e608c51ae.JPG)\
+\
 The code given is basically a Mux implemented using a ternary operator.\
 Now let us first do the RTL simulation.\
 For that we first invoke `iverilog` and then execute the a.out file using `./a.out`\
+\
 ![day4_2](https://user-images.githubusercontent.com/84860957/120068627-39fac180-c09f-11eb-8212-4350f6fbde0a.JPG)\
+\
 After getting the vcd file use `gtkwave <file name>` to see the simulation.\
+\
 ![day4_3](https://user-images.githubusercontent.com/84860957/120068653-6c0c2380-c09f-11eb-81d2-3b08a8f11e42.JPG)
 
 ![day4_4](https://user-images.githubusercontent.com/84860957/120068728-cdcc8d80-c09f-11eb-974d-8cc9c2df06a0.JPG)\
 \
 Here we observe it is clearly following the behaviour of 2:1 MUX.\
 Step 1 : Now let us systhesis for which we invoke `yosys`\
+\
 ![day4_5](https://user-images.githubusercontent.com/84860957/120068803-387dc900-c0a0-11eb-80d7-de215d0b64cc.JPG)\
 \
 Step 2 : To Load the .lib file we use the command `read_liberty -lib ../my_lib/lib/...`\
 ![day4_6](https://user-images.githubusercontent.com/84860957/120068847-70850c00-c0a0-11eb-8782-3e39a5be8f15.JPG)\
+\
 Step 3 : Then we read the verilog file using `read_verilog <file name>`\
+\
 ![day4_7](https://user-images.githubusercontent.com/84860957/120068898-a4f8c800-c0a0-11eb-8eed-100ab20a6d36.JPG)\
+\
 Step 4 : Now let us start the synthesis process using `synth -top <file name>`\
+\
 ![day4_8](https://user-images.githubusercontent.com/84860957/120068924-c78ae100-c0a0-11eb-8821-e602a0b716aa.JPG)\
 \
 ![day4_9](https://user-images.githubusercontent.com/84860957/120068944-e2f5ec00-c0a0-11eb-97d5-7e72d1be7317.JPG)\
