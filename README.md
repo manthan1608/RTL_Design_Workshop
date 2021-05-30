@@ -165,25 +165,25 @@ endmodule
 
 *Lab 3*\
 Synthsis using Yosys\
-First we Invoke the Yosys by simply typing the command `yosys`.\
+Step 1 : First we Invoke the Yosys by simply typing the command `yosys`.\
 \
 ![day1_18](https://user-images.githubusercontent.com/84860957/119946990-d8f6bf00-bfb4-11eb-87b9-2a511ae6cdc2.JPG)\
 \
-We are in the yosys prompt now, then we read the library using `read_liberty -lib` followed by path of the library it will import the library\
+Step 2 : We are in the yosys prompt now, then we read the library using `read_liberty -lib` followed by path of the library it will import the library\
 \
 ![day1_19](https://user-images.githubusercontent.com/84860957/119947527-7651f300-bfb5-11eb-9e68-25308a2abea8.JPG)\
 \
-Then read the design using the command `read_verilog`.\
+Step 3 : Then read the design using the command `read_verilog`.\
 \
 ![day1_20](https://user-images.githubusercontent.com/84860957/119947880-dea0d480-bfb5-11eb-8bdb-9e23a1f5d161.JPG)\
 \
-after the design is read successfully we use use the command `synth -top` for telling what module to synthsize\
+Step 4 :after the design is read successfully we use use the command `synth -top` for telling what module to synthsize\
 \
 ![day1_21](https://user-images.githubusercontent.com/84860957/119948465-7e5e6280-bfb6-11eb-9489-3f069303602f.JPG)\
 \
 ![day1_22](https://user-images.githubusercontent.com/84860957/119948468-7ef6f900-bfb6-11eb-9544-d86ed4deb9e2.JPG)\
 \
-Now to generate the netlist we use the command `abc -liberty` followed by the location of .lib file.\
+Step 5 : Now to generate the netlist we use the command `abc -liberty` followed by the location of .lib file.\
 \
 ![day1_23](https://user-images.githubusercontent.com/84860957/119949006-0e041100-bfb7-11eb-9b4d-a40df7d0e208.JPG)\
 \
@@ -191,7 +191,7 @@ We can see what all internal signals ,input and output cells it has inferred\
 \
 ![day1_24](https://user-images.githubusercontent.com/84860957/119949268-56bbca00-bfb7-11eb-8315-b4045f66a099.JPG)\
 \
-Now to see the Logic it has realised type the command `show`\
+Step 6 : Now to see the Logic it has realised type the command `show`\
 \
 ![day1_25](https://user-images.githubusercontent.com/84860957/119949813-e1042e00-bfb7-11eb-8198-a36287935281.JPG)\
 \
@@ -408,23 +408,23 @@ Let us first see the code for opt_check.v and opt_check2.v by opening it using `
 The opt_check is simplified as y = ab (And Logic gate)\
 The opt_check2 is simplified as y = a+b (Or logic gate)\
 \
-Now we invoke Yosys using the command `yosys`\
-Load the Libraries using `read_liberty -lib`\
-Now  read the verilog file using `read_verilog`\
+Step 1 : Now we invoke Yosys using the command `yosys`\
+Step 2 : Load the Libraries using `read_liberty -lib`\
+Step 3 : Now  read the verilog file using `read_verilog`\
 \
 ![day3_2](https://user-images.githubusercontent.com/84860957/119981687-8aa8e680-bfdb-11eb-9c62-59c34f971e51.JPG)\
 \
-Now synthesizing the device using `synth -top`\
+Step 4 : Now synthesizing the device using `synth -top`\
 \
 ![day3_3](https://user-images.githubusercontent.com/84860957/119982058-fdb25d00-bfdb-11eb-9882-fd6c04144920.JPG)\
 \
 ![day3_4](https://user-images.githubusercontent.com/84860957/119982061-fee38a00-bfdb-11eb-9772-66b434029a71.JPG)\
 \
-The  Command to do the constant propogation and all the optimisation is `opt_clean -purge`\
+Step 5 : The  Command to do the constant propogation and all the optimisation is `opt_clean -purge`\
 \
 ![day3_5](https://user-images.githubusercontent.com/84860957/119982501-8df0a200-bfdc-11eb-96ad-5c62cab322fa.JPG)\
 \
-Now Link it to the liberty using `abc -liberty` and then `show`\
+Step 6 : Now Link it to the liberty using `abc -liberty` and then `show`\
 \
 ![day3_6](https://user-images.githubusercontent.com/84860957/119982897-10796180-bfdd-11eb-8371-0986b9b1acf4.JPG)\
 \
@@ -452,7 +452,7 @@ Similary We observe multiple_modules_opt.v.\
 \
 ![day3_11](https://user-images.githubusercontent.com/84860957/119987069-3ce3ac80-bfe2-11eb-87bf-e9e223096f9d.JPG)\
 \
-We get the following result after we flatten the multiple_module_opt\
+We get the following result after we `flatten` the multiple_module_opt\
 \
 ![day3_12](https://user-images.githubusercontent.com/84860957/119988192-78cb4180-bfe3-11eb-9b06-6707cdf99650.JPG)\
 \
@@ -470,11 +470,11 @@ Here is the Verilog code for both\
 \
 ![image](https://user-images.githubusercontent.com/84860957/119992133-d95c7d80-bfe7-11eb-8bf5-7d32b4e6b79c.png)\
 \
-Let us simulate  before synthesizing for that we use iverilog and then excute the a.out file to get vcd file.\
+Step 1 : Let us simulate  before synthesizing for that we use iverilog and then excute the a.out file to get vcd file.\
 \
 ![image](https://user-images.githubusercontent.com/84860957/119993467-31e04a80-bfe9-11eb-8652-49a86e48e592.png)\
 \ 
-Use `gtkwave` to get the waveform\
+Step 2 : Use `gtkwave` to get the waveform\
 \
 ![image](https://user-images.githubusercontent.com/84860957/119994081-e1b5b800-bfe9-11eb-889b-2d5e21358af0.png)\
 \
@@ -786,23 +786,23 @@ After getting the vcd file use `gtkwave <file name>` to see the simulation.\
 ![day4_4](https://user-images.githubusercontent.com/84860957/120068728-cdcc8d80-c09f-11eb-974d-8cc9c2df06a0.JPG)\
 \
 Here we observe it is clearly following the behaviour of 2:1 MUX.\
-Now let us systhesis for which we invoke `yosys`\
+Step 1 : Now let us systhesis for which we invoke `yosys`\
 ![day4_5](https://user-images.githubusercontent.com/84860957/120068803-387dc900-c0a0-11eb-80d7-de215d0b64cc.JPG)\
 \
-To Load the .lib file we use the command `read_liberty -lib ../my_lib/lib/...`\
+Step 2 : To Load the .lib file we use the command `read_liberty -lib ../my_lib/lib/...`\
 ![day4_6](https://user-images.githubusercontent.com/84860957/120068847-70850c00-c0a0-11eb-8782-3e39a5be8f15.JPG)\
-Then we read the verilog file using `read_verilog <file name>`\
+Step 3 : Then we read the verilog file using `read_verilog <file name>`\
 ![day4_7](https://user-images.githubusercontent.com/84860957/120068898-a4f8c800-c0a0-11eb-8eed-100ab20a6d36.JPG)\
-Now let us start the synthesis process using `synth -top <file name>`\
+Step 4 : Now let us start the synthesis process using `synth -top <file name>`\
 ![day4_8](https://user-images.githubusercontent.com/84860957/120068924-c78ae100-c0a0-11eb-8821-e602a0b716aa.JPG)\
 \
 ![day4_9](https://user-images.githubusercontent.com/84860957/120068944-e2f5ec00-c0a0-11eb-97d5-7e72d1be7317.JPG)\
 We can clearly see that 1 Mux has been infered.\
-Now let us use the `abc -liberty ../my_lib/lib/<.lib file>`\
+Step 5 : Now let us use the `abc -liberty ../my_lib/lib/<.lib file>`\
 \
 ![day4_12](https://user-images.githubusercontent.com/84860957/120069067-93fc8680-c0a1-11eb-84b5-cf08d4465ca8.JPG)\
 \
-and then use `show` to get the logic diagram generated.\
+Step 6 : and then use `show` to get the logic diagram generated.\
 \
 ![day4_10](https://user-images.githubusercontent.com/84860957/120069034-64e61500-c0a1-11eb-86c3-744e7607d836.JPG)\
 \
@@ -813,11 +813,11 @@ This is the Logic Diagram generated\
 If we Solve the logic diagram we get the result as y = sel .i1 + sel'.i0.Exactly \
 \
 Now let us do the GLS.\
-For that we need to open iverilog with verilog models,netlist,  and testbench using the command `iverilog`. In the lib folder you will find the verilog models of the standard cells.Execute a.out file using ./a.out \
+Step 1 : Open iverilog with verilog models,netlist,  and testbench using the command `iverilog`. In the lib folder you will find the verilog models of the standard cells.Execute a.out file using ./a.out \
 \
 ![day4_13](https://user-images.githubusercontent.com/84860957/120069303-d83c5680-c0a2-11eb-9798-d2fe66abbef8.JPG)\
 \
-Now as the vcd file is generated.Now we use GTKwave to observe the simulation by giving the command `gtkwave`\
+Step 2 : Now as the vcd file is generated.Now we use GTKwave to observe the simulation by giving the command `gtkwave`\
 \
 ![day4_14](https://user-images.githubusercontent.com/84860957/120069400-7e885c00-c0a3-11eb-90f8-a878492882e5.JPG)\
 \
@@ -836,17 +836,9 @@ Now Let us take another example of bad_mux.v\
 \
 We can observe that in this case the always block going to be evaluated only upon changes in sel.\
 So in simulation it we work as some kind of flop.\
-Now let us carry out the RTL simulation.\
+Now let us carry out the RTL simulation using the steps we followed for simultion above\
 \
-For simulation we first invoke the iverilog using `iverilog` command.\
-\
-![day4_18](https://user-images.githubusercontent.com/84860957/120069804-703b3f80-c0a5-11eb-84e4-9ab930e19506.JPG)\
-\
-Then we execute the a.out file using the `./a.out` command and get the vcd file.\
-\
-![day4_19](https://user-images.githubusercontent.com/84860957/120069865-bbede900-c0a5-11eb-9ebf-5b54e677a229.JPG)\
-\
-Now we use GTKwave to observe the simulation by giving the command `gtkwave`\
+Let us observe the simulation results by giving the command `gtkwave`\
 \
 ![day4_20](https://user-images.githubusercontent.com/84860957/120069952-2bfc6f00-c0a6-11eb-9026-d1a49a0c1a4c.JPG)\
 \
@@ -857,18 +849,18 @@ This simulation shows as if the Mux is acting like a flop .\
 \
 Now let us synthesis and see what happens.
 \
-For synthesis we invoke `yosys`\
+Step 1 : For synthesis we invoke `yosys`\
 \
 ![day4_5](https://user-images.githubusercontent.com/84860957/120070340-a37ece00-c0a7-11eb-8574-e0fa81a9f8e2.JPG)\
 \
-To Load the .lib file we use the command `read_liberty -lib ../my_lib/lib/...`\
+Step 2 : To Load the .lib file we use the command `read_liberty -lib ../my_lib/lib/...`\
 ![day4_6](https://user-images.githubusercontent.com/84860957/120068847-70850c00-c0a0-11eb-8782-3e39a5be8f15.JPG)\
 \
-Then we read the verilog file using `read_verilog <file name>`\
+Step 3 : Then we read the verilog file using `read_verilog <file name>`\
 \
 ![day4_22](https://user-images.githubusercontent.com/84860957/120070407-01131a80-c0a8-11eb-8031-5d4d3ded68ac.JPG)\
 \
-Now let us start the synthesis process using `synth -top <file name>`\
+Step 4 : Now let us start the synthesis process using `synth -top <file name>`\
 \
 ![day4_23](https://user-images.githubusercontent.com/84860957/120070465-4a636a00-c0a8-11eb-9f7a-f26f896ec6b8.JPG)\
 \
@@ -878,20 +870,20 @@ Here are some details of which gates are inferred\
 \
 So we see it infers MUX not a latch.\
 \
-Now let us use the `abc -liberty ../my_lib/lib/<.lib file>`\
+Step 5 : Now let us use the `abc -liberty ../my_lib/lib/<.lib file>`\
 \
 ![day4_25](https://user-images.githubusercontent.com/84860957/120070588-eab98e80-c0a8-11eb-89a6-efca6f81ae7c.JPG)\
 \
-Now to get the netlist file we use `write_verilog`\
+Step 6 : Now to get the netlist file we use `write_verilog`\
 \
 ![day4_26](https://user-images.githubusercontent.com/84860957/120070746-a7135480-c0a9-11eb-89cb-1d0abfd9cafe.JPG)
 \
 Now let us do the GLS.\
-For that we need to open iverilog with verilog models,netlist,  and testbench using the command `iverilog`. In the lib folder you will find the verilog models of the standard cells.Execute a.out file using `./a.out` \
+Step 1 : For that we need to open iverilog with verilog models,netlist,  and testbench using the command `iverilog`. In the lib folder you will find the verilog models of the standard cells.Execute a.out file using `./a.out` \
 \
 ![day4_27](https://user-images.githubusercontent.com/84860957/120070876-3e78a780-c0aa-11eb-807f-dacf1babe9e9.JPG)\
 \
-Now we use GTKwave to observe the simulation by giving the command `gtkwave`\
+Step 2 : Now we use GTKwave to observe the simulation by giving the command `gtkwave`\
 \
 ![day4_28](https://user-images.githubusercontent.com/84860957/120071008-d2e30a00-c0aa-11eb-8cb4-d0057556c67a.JPG)\
 \
@@ -917,15 +909,9 @@ Now because of the blocking statement first d will be assigned (x and c) then x 
 So by the time the statement for d is getting evaluated we have the previous value of x .\
 So when we simulate it , it will look as if x is a flopped output.\
 \
-Now let us do the RTL simulation.\
+Now let us do the RTL simulation using the steps we followed for different simulations\
 \
-For simulation we first invoke the iverilog using `iverilog` command.\
-\
-Then we execute the a.out file using the `./a.out` command and get the vcd file.\
-\
-![day4_33](https://user-images.githubusercontent.com/84860957/120072156-f3619300-c0af-11eb-9e3d-d66690e44af8.JPG)\
-\
-Now we use GTKwave to observe the simulation by giving the command `gtkwave`\
+Let us observe the simulation result by giving the command `gtkwave`\
 \
 ![day4_34](https://user-images.githubusercontent.com/84860957/120072245-77b41600-c0b0-11eb-8bfc-7fbf955cbe2b.JPG)\
 \
@@ -933,20 +919,9 @@ Now we use GTKwave to observe the simulation by giving the command `gtkwave`\
 \
 We see from the simulation that the value of d = 0 but it is coming out to be 1 because the past value of (a or b) is 1 in the cycle before that value is getting anded with the present value of c.\
 \
-Now let us synthesis and see what happens.
+Now let us synthesis using the steps we followed in various examples above and see what happens.
 \
-For synthesis we invoke `yosys`\
-\
-![day4_5](https://user-images.githubusercontent.com/84860957/120070340-a37ece00-c0a7-11eb-8574-e0fa81a9f8e2.JPG)\
-\
-To Load the .lib file we use the command `read_liberty -lib ../my_lib/lib/...`\
-![day4_6](https://user-images.githubusercontent.com/84860957/120068847-70850c00-c0a0-11eb-8782-3e39a5be8f15.JPG)\
-\
-Then we read the verilog file using `read_verilog <file name>`\
-\
-![day4_36](https://user-images.githubusercontent.com/84860957/120072503-df1e9580-c0b1-11eb-8be7-9bff69bf2070.JPG)\
-\
-Now let us start the synthesis process using `synth -top <file name>`\
+After `synth -top`\
 \
 ![day4_37](https://user-images.githubusercontent.com/84860957/120072570-20af4080-c0b2-11eb-976a-742383e89d8d.JPG)\
 \
@@ -954,11 +929,11 @@ Here are some details of which gates are inferred\
 \
 ![day4_38](https://user-images.githubusercontent.com/84860957/120072657-90bdc680-c0b2-11eb-9bf8-660e200cd324.JPG)\
 \
-Now let us use the `abc -liberty ../my_lib/lib/<.lib file>`\
+Step 6 : Now let us use the `abc -liberty ../my_lib/lib/<.lib file>`\
 \
 ![day4_25](https://user-images.githubusercontent.com/84860957/120070588-eab98e80-c0a8-11eb-89a6-efca6f81ae7c.JPG)\
 \
-Now to get the netlist file we use `write_verilog`\
+Step 7 : Now to get the netlist file we use `write_verilog`\
 \
 ![day4_39](https://user-images.githubusercontent.com/84860957/120072843-54d73100-c0b3-11eb-9ee4-7310def47998.JPG)\
 \
@@ -968,12 +943,9 @@ Before going to the GLS let us look at what logic we got by giving the command `
 \
 We clearly see that it is very straight forward with or 2 and gate used and no latches in the design.\
 \
-Now let us do the GLS.\
-For that we need to open iverilog with verilog models,netlist,  and testbench using the command `iverilog`. In the lib folder you will find the verilog models of the standard cells.Execute a.out file using `./a.out` \
+Now let us do the GLS using the step we followed in above example\
 \
-![day4_41](https://user-images.githubusercontent.com/84860957/120073206-12165880-c0b5-11eb-89a8-db54c4fcc4d2.JPG)\
-\
-Now we use GTKwave to observe the simulation by giving the command `gtkwave`\
+Let us observe the simulation results we got\
 \
 ![day4_42](https://user-images.githubusercontent.com/84860957/120073346-83eea200-c0b5-11eb-832f-b39ed0968f2b.JPG)\
 \
