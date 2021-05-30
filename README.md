@@ -990,7 +990,45 @@ This is Synthesis Simulation Mismatch caused by Blocking statement.\
 
 
 ## Day 5 Optimization in synthesis
-this is the last final day 
+In this section we will study about *if* and *case* Statement and there uses as well as there disadvantages.
+### If Case Constructs
+- if is basically a priority logic
+```verilog
+if<cond>
+begin
+.....
+.....
+end
+else
+begin
+.....
+.....
+end
+```
+and if-else statement
+```verilog
+if<cond>
+begin
+.....
+.....
+end
+else if<cond2>
+begin
+.....
+.....
+end
+else if<cond3>
+begin
+.....
+.....
+end
+else
+begin
+.....
+.....
+end
+```
+
 
 
 
