@@ -3,15 +3,17 @@
 This is a repository on RTL Design using Verilog with Sky130 Technology workshop conducted by VSD.It is a day by day log including examples from Lab sessions and Theory sessions
 ## Table of Content
 <Details>
-- [Introduction](#Introduction)
-- [Day 1 Introduction to Verilog RTL Design and Synthesis](#Day-1-Introduction-to-Verilog-RTL-Design-and-Synthesis)
-- [Day 2 Timing libs Hierarical vs Flat Synthesis and efficient Flop Coding Styles](#Day-2-Timing-libs-Hierarical-vs-Flat-Synthesis-and-efficient-Flop-Coding-Styles)
-- [Day 3 Combinational and sequential optimization](#Day-3-Combinational-and-sequential-optimization)
-- [Day 4 GLS blocking vs non blocking and Synthesis Simulation mismatch](#Day-4-GLS-,blocking-vs-non-blocking-and-Synthesis-Simulation-mismatch)
-- [Day 5 Optimization in synthesis](#Day-5-Optimization-in-synthesis)
-- [Observations](#Observations)
-- [Acknowledgement](#Acknowledgement)
-- [References](#References)
+	- [Introduction](#Introduction)
+        - [Day 1 Introduction to Verilog RTL Design and Synthesis](#Day-1-Introduction-to-Verilog-RTL-Design-and-Synthesis)
+        - [Day 2 Timing libs Hierarical vs Flat Synthesis and efficient Flop Coding Styles](#Day-2-Timing-libs-Hierarical-vs-Flat-Synthesis-and-efficient-Flop-Coding-Styles)
+        - [Day 3 Combinational and sequential optimization](#Day-3-Combinational-and-sequential-optimization)
+        - [Day 4 GLS blocking vs non blocking and Synthesis Simulation mismatch](#Day-4-GLS-,blocking-vs-non-blocking-and-Synthesis-Simulation-mismatch)
+        - [Day 5 Optimization in synthesis](#Day-5-Optimization-in-synthesis)
+        - [Observations](#Observations)
+        - [Acknowledgement](#Acknowledgement)
+        - [References](#References)
+	
+
 </Details>
 
 ## Introduction
