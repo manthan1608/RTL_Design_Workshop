@@ -1255,7 +1255,7 @@ end
 endmodule
 ```
 - In this case for sel = 11 there are 2 options available i.e y=i2 and y=i3 this will cause some issue while simulating and synthesising it.
-Now let simulate and synthesis it using the same steps above and conclude our finding.\
+Now let us simulate and synthesis it using the same steps above and conclude our finding.\
 \
 After Simulation we get the following waveform\
 \
@@ -1279,7 +1279,161 @@ Step 1 : Use `write_verilog` to the netlist\
 \
 Step 2 : Open iverilog with verilog models,netlist and testbench using the command `iverilog`. In the lib folder you will find the verilog models of the standard cells.Execute a.out file using `./a.out` \
 \
-![day5_24](https://user-images.githubusercontent.com/84860957/120097313-5fde9f80-c14d-11eb-95c4-00225707a9e1.JPG).
+![day5_24](https://user-images.githubusercontent.com/84860957/120097313-5fde9f80-c14d-11eb-95c4-00225707a9e1.JPG)\
+\
+Step 3 : Now we use GTKwave to observe the simulation by giving the command `gtkwave`\
+\
+![day5_25](https://user-images.githubusercontent.com/84860957/120099944-d1254f00-c15b-11eb-8e77-577e12f12485.JPG)\
+\
+- We can clearly see that in this wave form it is not getting confused and when sel = 11 it follows i3.
+
+### Looping Constructs
+There are 2 types of  loops
+- For Loop
+  * Used inside always block.
+  * Used for evaluating expressions.
+  * Not used for instantiating hardware.
+- Generate For Loop
+  * Used outside always block.
+  * Cannot be used inside always
+  * Used for instantiating hardware
+*Lab 3*\
+#### For Statement 
+Let us understand the for statement with  the use of some examples.\
+\
+Let us consider mux_generate.v \
+```verilog
+module mux_generate (input i0 , input i1, input i2 , input i3 , input [1:0] sel  , output reg y);
+wire [3:0] i_int;
+assign i_int = {i3,i2,i1,i0};
+integer k;
+always @ (*)
+begin
+for(k = 0; k < 4; k=k+1) begin
+	if(k == sel)
+		y = i_int[k];
+end
+end
+endmodule
+```
+Now let simulate it using the same steps above \
+\
+After Simulation we get the following waveform\
+\
+![day5_26](https://user-images.githubusercontent.com/84860957/120100833-780bea00-c160-11eb-942e-0023bdd165d8.JPG)
+- It is clearly behaving as a 4x1 Mux.If we write the same code using case statement the code and the value of mux input is increased the gets too complicated but using the for statement we are able to write it easily.
+
+Now let us consider demux_case.v and demux_generate.v and compare them\
+demux_case.v
+```verilog
+module demux_case (output o0 , output o1, output o2 , output o3, output o4, output o5, output o6 , output o7 , input [2:0] sel  , input i);
+reg [7:0]y_int;
+assign {o7,o6,o5,o4,o3,o2,o1,o0} = y_int;
+integer k;
+always @ (*)
+begin
+y_int = 8'b0;
+	case(sel)
+		3'b000 : y_int[0] = i;
+		3'b001 : y_int[1] = i;
+		3'b010 : y_int[2] = i;
+		3'b011 : y_int[3] = i;
+		3'b100 : y_int[4] = i;
+		3'b101 : y_int[5] = i;
+		3'b110 : y_int[6] = i;
+		3'b111 : y_int[7] = i;
+	endcase
+
+end
+endmodule
+```
+demux_generate.v
+```verilog
+module demux_generate (output o0 , output o1, output o2 , output o3, output o4, output o5, output o6 , output o7 , input [2:0] sel  , input i);
+reg [7:0]y_int;
+assign {o7,o6,o5,o4,o3,o2,o1,o0} = y_int;
+integer k;
+always @ (*)
+begin
+y_int = 8'b0;
+for(k = 0; k < 8; k++) begin
+	if(k == sel)
+		y_int[k] = i;
+end
+end
+endmodule
+```
+- We observe that demux_generate.v is using for statement because of which the the lenght of the code is decreased.
+
+Now let simulate demux_case.v using the same steps above \
+\
+After Simulation we get the following waveform\
+\
+![day5_27](https://user-images.githubusercontent.com/84860957/120101316-33358280-c163-11eb-82cb-4f9da8364d19.JPG)
+
+- We clearly observe from the wave the when sel = 1  o1  follows the input ,sel = 2 o2 follows the input  and so on it clearly behaves as 1:8 demux.
+
+Now let simulate demux_generate.v using the same steps above \
+\
+After Simulation we get the following waveform\
+\
+After Simulation we get the following waveform\
+![day5_28](https://user-images.githubusercontent.com/84860957/120101599-6593af80-c164-11eb-80c5-32a6a4e60097.JPG)
+- Both the Waveforms are exactly the same the difference is just in the coding.
+- demux_generate.v is more elegant code than demux_case.v
+
+#### For generate Statement
+Let us understand the for generate statement with  the use of some examples.\
+\
+So Let us consider rca.v and fa.v\
+rca.v
+```verilog
+module rca (input [7:0] num1 , input [7:0] num2 , output [8:0] sum);
+wire [7:0] int_sum;
+wire [7:0]int_co;
+
+genvar i;
+generate
+	for (i = 1 ; i < 8; i=i+1) begin
+		fa u_fa_1 (.a(num1[i]),.b(num2[i]),.c(int_co[i-1]),.co(int_co[i]),.sum(int_sum[i]));
+	end
+
+endgenerate
+fa u_fa_0 (.a(num1[0]),.b(num2[0]),.c(1'b0),.co(int_co[0]),.sum(int_sum[0]));
+
+
+assign sum[7:0] = int_sum;
+assign sum[8] = int_co[7];
+endmodule
+```
+fa.v
+```verilog
+module fa (input a , input b , input c, output co , output sum);
+	assign {co,sum}  = a + b + c ;
+endmodule
+```
+- There is no always block used in thesen codes.
+- The variable we used here is called the genvar not an integer.
+*Note*
+> *Rules for addition*
+>  * *N and N bit number --> Sum will be N+1 bit*
+>  * *N and M bit number --> Sum will be Max(N,M)+1 bit*
+
+Now let simulate using the step followed above. In this case before compiling rca.v we call fa.v to specify where the defination of fa is present.\
+\
+![day5_29](https://user-images.githubusercontent.com/84860957/120102354-3121f280-c168-11eb-9bb1-8d66a19bde93.JPG)\
+\
+After Simulation we get the following waveform\
+\
+![day5_30](https://user-images.githubusercontent.com/84860957/120102466-cfae5380-c168-11eb-91cc-378dd4da5883.JPG)
+
+
+
+
+
+
+
+
 
 
 
