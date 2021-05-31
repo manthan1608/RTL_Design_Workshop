@@ -1051,7 +1051,7 @@ begin
 end
 ```
 The Hardware Implementation of these statement is as shown in the image below.
-![image](https://user-images.githubusercontent.com/84860957/120093013-e2a73080-c134-11eb-9d87-4965115c9a02.png)\
+![day5_37](https://user-images.githubusercontent.com/84860957/120141063-6296ce80-c1f9-11eb-8669-a2262fc45191.JPG)
 #### Caution with if statement
 - inferred latches --> it is a bad coding style and occurs due to incomplete if statement
   * Sometimes we need the inferred latch like in the case of counters if there is no enable the counter should latch on to the previous value.
