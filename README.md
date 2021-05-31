@@ -622,7 +622,7 @@ So we conclude that all the outputs that have no role in determining the primary
 #### Why GLS ?
 - Verify the LOgical Correctness of the design after synthesis.
 - Ensuring the Timing of design is met
-  * For this GLS needs to be run with delay annotation. \
+  * For this GLS needs to be run with delay annotation.
 #### GLS using iverilog
 - We give the Netlist,**Gate Level Verilog Models** and Testbench  to the iverilog.
 - Netlist has all the standard cell instantiated and the meaning of standard cell is conveyed to the iverilog by **Gate Level Verilog Models**.
@@ -643,7 +643,7 @@ So we conclude that all the outputs that have no role in determining the primary
 - Blocking Vs Non-Blocking Assignments
 - Non Standard verilog Coding
 
-##### Missing Sensitivity List
+#### Missing Sensitivity List
 Let us consider a verilog Code
 ```verilog 
 module mux(
@@ -687,7 +687,7 @@ endmodule
 - So now always block will be evaluated for i1 as well as i0
 - This will simulate as Mux and also be synthesised as Mux.
 
-##### Blocking and Non Blocking Statements
+#### Blocking and Non Blocking Statements
 - Inside always block
   * If we are using '=' to make assignments
     * Executes the Statement in the order it is written.
@@ -696,7 +696,7 @@ endmodule
     * Executes all the RHS when always block is enteredand assigns to LHS
     * Parallel Evaluation
 
-##### Caveats with Blocking Statements 
+#### Caveats with Blocking Statements 
 - Let try to create a shift register
 
 ```verilog
