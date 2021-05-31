@@ -1229,7 +1229,7 @@ This waveform clearly suggest that there is no latch involved and it a pure MUX 
 \
 After Synthesis we get the following design\
 \
-![day5_18](https://user-images.githubusercontent.com/84860957/120096029-d75d0080-c146-11eb-8dfe-b6447cffaecf.JPG)\
+![day5_18](https://user-images.githubusercontent.com/84860957/120096029-d75d0080-c146-11eb-8dfe-b6447cffaecf.JPG)
 - Clearly we can see there is latching action when sel = 10 and 11 the output is i2.
 
 If we consider the partial_case_assign.v
@@ -1256,8 +1256,8 @@ Now let synthesis it using the same steps above and conclude our finding.\
 \
 After Synthesis we get the following design\
 \
-![day5_19](https://user-images.githubusercontent.com/84860957/120096317-61f22f80-c148-11eb-9ce0-9a22a4a6c117.JPG)\
-\
+![day5_19](https://user-images.githubusercontent.com/84860957/120096317-61f22f80-c148-11eb-9ce0-9a22a4a6c117.JPG)
+
 - Clearly we see there no latch in the path of x but in the path of y there is latch as condition for 01 is not defined.
 If we consider bad_case.v
 ```verilog
@@ -1305,7 +1305,6 @@ Step 2 : Open iverilog with verilog models,netlist and testbench using the comma
 Step 3 : Now we use GTKwave to observe the simulation by giving the command `gtkwave`\
 \
 ![day5_25](https://user-images.githubusercontent.com/84860957/120099944-d1254f00-c15b-11eb-8e77-577e12f12485.JPG)\
-\
 - We can clearly see that in this wave form it is not getting confused and when sel = 11 it follows i3.
 
 ### Looping Constructs
@@ -1318,11 +1317,13 @@ There are 2 types of  loops
   * Used outside always block.
   * Cannot be used inside always
   * Used for instantiating hardware
-*Lab 3*\
+
+
+*Lab 3*
 #### For Statement 
 Let us understand the for statement with  the use of some examples.\
 \
-Let us consider mux_generate.v \
+Let us consider mux_generate.v 
 ```verilog
 module mux_generate (input i0 , input i1, input i2 , input i3 , input [1:0] sel  , output reg y);
 wire [3:0] i_int;
@@ -1435,6 +1436,8 @@ endmodule
 ```
 - There is no always block used in thesen codes.
 - The variable we used here is called the genvar not an integer.
+
+
 *Note*
 > *Rules for addition*
 >  * *N and N bit number --> Sum will be N+1 bit*
