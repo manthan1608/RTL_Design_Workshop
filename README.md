@@ -1087,7 +1087,7 @@ begin
 *Lab 1*\
 In this session we will use the if statement and incomplete if statement.\
 \
-We first take the code incom_if.v \
+We first take the code incom_if.v
 ```verilog
 module incomp_if (input i0 , input i1 , input i2 , output reg y);
 always @ (*)
@@ -1146,7 +1146,7 @@ It is a D latch. This is the danger of incomplete if we get a latch instead of m
 *Lab 2*\
 Now let us see the case statement and incomplete case statements.\
 \
-We first take the code incom_if.v.\
+We first take the code incom_if.v.
 ```verilog 
 module incomp_case (input i0 , input i1 , input i2 , input [1:0] sel, output reg y);
 always @ (*)
@@ -1230,7 +1230,6 @@ This waveform clearly suggest that there is no latch involved and it a pure MUX 
 After Synthesis we get the following design\
 \
 ![day5_18](https://user-images.githubusercontent.com/84860957/120096029-d75d0080-c146-11eb-8dfe-b6447cffaecf.JPG)\
-\
 - Clearly we can see there is latching action when sel = 10 and 11 the output is i2.
 
 If we consider the partial_case_assign.v
