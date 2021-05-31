@@ -863,7 +863,7 @@ This is the Logic Diagram generated\
 If we Solve the logic diagram we get the result as y = sel .i1 + sel'.i0.Exactly \
 \
 Now let us do the GLS.\
-Step 1 : Open iverilog with verilog models,netlist,  and testbench using the command `iverilog`. In the lib folder you will find the verilog models of the standard cells.Execute a.out file using ./a.out \
+Step 1 : Open iverilog with verilog models,netlist,  and testbench using the command `iverilog`. In the lib folder you will find the verilog models of the standard cells.Execute a.out file using `./a.out` \
 \
 ![day4_13](https://user-images.githubusercontent.com/84860957/120069303-d83c5680-c0a2-11eb-9798-d2fe66abbef8.JPG)\
 \
