@@ -1304,7 +1304,7 @@ Step 2 : Open iverilog with verilog models,netlist and testbench using the comma
 \
 Step 3 : Now we use GTKwave to observe the simulation by giving the command `gtkwave`\
 \
-![day5_25](https://user-images.githubusercontent.com/84860957/120099944-d1254f00-c15b-11eb-8e77-577e12f12485.JPG)\
+![day5_25](https://user-images.githubusercontent.com/84860957/120099944-d1254f00-c15b-11eb-8e77-577e12f12485.JPG)
 - We can clearly see that in this wave form it is not getting confused and when sel = 11 it follows i3.
 
 ### Looping Constructs
