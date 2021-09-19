@@ -32,7 +32,7 @@ Design is the actual Verilog Code or set of verilog codes which has the intended
 ***TestBench***\
 TestBench is setup toapply stimulus (test vectors) to the design to check its Functionality.\
 **How the Simulator Works ?**
-- Simulator looks for chenges in input signal.
+- Simulator looks for changes in input signal.
 - Upon change in input the output is observed.
    * If there is no change to the input there will be no change to the output.
 - Simultor looks for changes in the Value of input.
